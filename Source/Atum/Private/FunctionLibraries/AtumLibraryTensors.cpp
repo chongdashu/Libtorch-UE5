@@ -119,6 +119,32 @@ TScriptInterface<IAtumTensor> UAtumLibraryTensors::BinaryCrossEntropy(
 	return Tensor;
 }
 
+TScriptInterface<IAtumTensor> UAtumLibraryTensors::MeanSquareError(
+	const TScriptInterface<IAtumTensor>& Output,
+	const TScriptInterface<IAtumTensor>& Label,
+
+	
+	const UClass* const Class
+	) noexcept
+
+
+{
+	
+	check(Class && Class->ImplementsInterface(UAtumTensor::StaticClass()))
+	
+
+
+	auto* const Tensor = NewObject<UObject>(GetTransientPackage(), Class);
+
+	if (Output && Output->IsBroadcastableWith(Label))
+	{
+		CastChecked<IAtumTensor>(Tensor)->SetData(
+			mse_loss(Output->GetDataChecked(), Label->GetDataChecked(), at::Reduction::Mean)
+		);
+	}
+	return Tensor;
+}
+
 void UAtumLibraryTensors::GenericArray_Serialize(
 	const uint8* const TargetAddress,
 	const FArrayProperty* const TargetProperty,

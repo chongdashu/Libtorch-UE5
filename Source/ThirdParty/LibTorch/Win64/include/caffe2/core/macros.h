@@ -5,24 +5,6 @@
 
 #pragma once
 
-// Caffe2 version. The plan is to increment the minor version every other week
-// as a track point for bugs, until we find a proper versioning cycle.
-
-#define CAFFE2_VERSION_MAJOR 2
-#define CAFFE2_VERSION_MINOR 0
-#define CAFFE2_VERSION_PATCH 1
-
-static_assert(
-    CAFFE2_VERSION_MINOR < 100,
-    "Programming error: you set a minor version that is too big.");
-static_assert(
-    CAFFE2_VERSION_PATCH < 100,
-    "Programming error: you set a patch version that is too big.");
-
-#define CAFFE2_VERSION                                         \
-  (CAFFE2_VERSION_MAJOR * 10000 + CAFFE2_VERSION_MINOR * 100 + \
-   CAFFE2_VERSION_PATCH)
-
 #define CAFFE2_BUILD_SHARED_LIBS
 /* #undef CAFFE2_FORCE_FALLBACK_CUDA_MPI */
 /* #undef CAFFE2_HAS_MKL_DNN */
@@ -34,7 +16,7 @@ static_assert(
 /* #undef CAFFE2_THREADPOOL_STATS */
 #define CAFFE2_USE_EXCEPTION_PTR
 /* #undef CAFFE2_USE_ACCELERATE */
-#define CAFFE2_USE_CUDNN
+/* #undef CAFFE2_USE_CUDNN */
 /* #undef CAFFE2_USE_EIGEN_FOR_BLAS */
 /* #undef CAFFE2_USE_FBCODE */
 /* #undef CAFFE2_USE_GOOGLE_GLOG */
@@ -52,18 +34,18 @@ static_assert(
 
 // Useful build settings that are recorded in the compiled binary
 #define CAFFE2_BUILD_STRINGS { \
-  {"TORCH_VERSION", "2.0.1"}, \
+  {"TORCH_VERSION", "2.1.0"}, \
   {"CXX_COMPILER", "C:/actions-runner/_work/pytorch/pytorch/builder/windows/tmp_bin/sccache-cl.exe"}, \
-  {"CXX_FLAGS", "/DWIN32 /D_WINDOWS /GR /EHsc /w /bigobj /FS -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOCUPTI -DLIBKINETO_NOROCTRACER -DUSE_FBGEMM -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE"}, \
+  {"CXX_FLAGS", "/DWIN32 /D_WINDOWS /GR /EHsc /bigobj /FS -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOCUPTI -DLIBKINETO_NOROCTRACER -DUSE_FBGEMM -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE /utf-8 /wd4624 /wd4068 /wd4067 /wd4267 /wd4661 /wd4717 /wd4244 /wd4804 /wd4273"}, \
   {"BUILD_TYPE", "Release"}, \
   {"BLAS_INFO", "mkl"}, \
   {"LAPACK_INFO", "mkl"}, \
-  {"USE_CUDA", "ON"}, \
+  {"USE_CUDA", "0"}, \
   {"USE_ROCM", "OFF"}, \
-  {"CUDA_VERSION", "11.8"}, \
+  {"CUDA_VERSION", ""}, \
   {"ROCM_VERSION", ""}, \
-  {"USE_CUDNN", "ON"}, \
-  {"CUDNN_VERSION", "8.7.0"}, \
+  {"USE_CUDNN", "OFF"}, \
+  {"CUDNN_VERSION", ""}, \
   {"USE_NCCL", "OFF"}, \
   {"USE_MPI", "OFF"}, \
   {"USE_GFLAGS", "OFF"}, \

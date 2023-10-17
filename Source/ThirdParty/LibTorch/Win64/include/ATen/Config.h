@@ -7,6 +7,7 @@
 // DO NOT put the macros for CUDA libraries in this file; they belong in cuda/CUDAConfig.h
 
 #define AT_MKLDNN_ENABLED() 1
+#define AT_MKLDNN_ACL_ENABLED() 0
 #define AT_MKL_ENABLED() 1
 #define AT_MKL_SEQUENTIAL() 0
 #define AT_FFTW_ENABLED() 0

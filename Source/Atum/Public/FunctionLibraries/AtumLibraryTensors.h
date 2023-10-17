@@ -260,6 +260,27 @@ public:
 		const TScriptInterface<IAtumTensor>& Label,
 		UPARAM(meta = (MustImplement = "/Script/Atum.AtumTensor")) const UClass* Class
 	) noexcept;
+
+	/**
+	 * Performs the mean square error algorithm
+	 * 
+	 * @param Output Generated data
+	 * @param Label Ground truth
+	 * @param Class Type of tensor implementation of the result
+	 * @return The loss
+	 */
+	UE_NODISCARD
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor", meta = (
+		Keywords = "ATUM Tensor Mean Square Error Output Label Class"
+	))
+	static TScriptInterface<IAtumTensor> MeanSquareError(
+		const TScriptInterface<IAtumTensor>& Output,
+		const TScriptInterface<IAtumTensor>& Label,
+			
+
+		UPARAM(meta = (MustImplement = "/Script/Atum.AtumTensor")) const UClass* Class
+	) noexcept;
+		
 	
 	/**
 	 * Serialises an array of any type

@@ -103,7 +103,6 @@
 #include <ATen/ops/_cdist_forward.h>
 #include <ATen/ops/_cholesky_solve_helper.h>
 #include <ATen/ops/_choose_qparams_per_tensor.h>
-#include <ATen/ops/_chunk_grad_outputs_efficient_attention.h>
 #include <ATen/ops/_coalesce.h>
 #include <ATen/ops/_coalesced.h>
 #include <ATen/ops/_compute_linear_combination.h>
@@ -156,6 +155,7 @@
 #include <ATen/ops/_fft_c2c.h>
 #include <ATen/ops/_fft_c2r.h>
 #include <ATen/ops/_fft_r2c.h>
+#include <ATen/ops/_fill_mem_eff_dropout_mask.h>
 #include <ATen/ops/_flash_attention_backward.h>
 #include <ATen/ops/_flash_attention_forward.h>
 #include <ATen/ops/_foobar.h>
@@ -189,9 +189,11 @@
 #include <ATen/ops/_foreach_mul.h>
 #include <ATen/ops/_foreach_neg.h>
 #include <ATen/ops/_foreach_norm.h>
+#include <ATen/ops/_foreach_pow.h>
 #include <ATen/ops/_foreach_reciprocal.h>
 #include <ATen/ops/_foreach_round.h>
 #include <ATen/ops/_foreach_sigmoid.h>
+#include <ATen/ops/_foreach_sign.h>
 #include <ATen/ops/_foreach_sin.h>
 #include <ATen/ops/_foreach_sinh.h>
 #include <ATen/ops/_foreach_sqrt.h>
@@ -200,6 +202,8 @@
 #include <ATen/ops/_foreach_tanh.h>
 #include <ATen/ops/_foreach_trunc.h>
 #include <ATen/ops/_foreach_zero.h>
+#include <ATen/ops/_functional_assert_async.h>
+#include <ATen/ops/_functional_sym_constrain_range.h>
 #include <ATen/ops/_fused_adam.h>
 #include <ATen/ops/_fused_adamw.h>
 #include <ATen/ops/_fused_dropout.h>
@@ -218,6 +222,7 @@
 #include <ATen/ops/_index_put_impl.h>
 #include <ATen/ops/_indices.h>
 #include <ATen/ops/_indices_copy.h>
+#include <ATen/ops/_int_mm.h>
 #include <ATen/ops/_is_all_true.h>
 #include <ATen/ops/_is_any_true.h>
 #include <ATen/ops/_is_zerotensor.h>
@@ -233,6 +238,7 @@
 #include <ATen/ops/_logcumsumexp.h>
 #include <ATen/ops/_lstm_mps.h>
 #include <ATen/ops/_lu_with_info.h>
+#include <ATen/ops/_make_dep_token.h>
 #include <ATen/ops/_make_dual.h>
 #include <ATen/ops/_make_dual_copy.h>
 #include <ATen/ops/_make_per_channel_quantized_tensor.h>
@@ -245,7 +251,7 @@
 #include <ATen/ops/_mps_convolution.h>
 #include <ATen/ops/_mps_convolution_transpose.h>
 #include <ATen/ops/_native_batch_norm_legit.h>
-#include <ATen/ops/_native_decoder_only_multi_head_attention.h>
+#include <ATen/ops/_native_batch_norm_legit_no_training.h>
 #include <ATen/ops/_native_multi_head_attention.h>
 #include <ATen/ops/_neg_view.h>
 #include <ATen/ops/_neg_view_copy.h>
@@ -256,9 +262,9 @@
 #include <ATen/ops/_nested_tensor_from_mask.h>
 #include <ATen/ops/_nested_tensor_from_mask_left_aligned.h>
 #include <ATen/ops/_nested_tensor_from_tensor_list.h>
-#include <ATen/ops/_nested_tensor_offsets.h>
 #include <ATen/ops/_nested_tensor_size.h>
 #include <ATen/ops/_nested_tensor_softmax_with_shape.h>
+#include <ATen/ops/_nested_tensor_storage_offsets.h>
 #include <ATen/ops/_nested_tensor_strides.h>
 #include <ATen/ops/_nested_view_from_buffer.h>
 #include <ATen/ops/_nested_view_from_buffer_copy.h>
@@ -276,6 +282,7 @@
 #include <ATen/ops/_pin_memory.h>
 #include <ATen/ops/_prelu_kernel.h>
 #include <ATen/ops/_prelu_kernel_backward.h>
+#include <ATen/ops/_propagate_xla_data.h>
 #include <ATen/ops/_remove_batch_dim.h>
 #include <ATen/ops/_reshape_alias.h>
 #include <ATen/ops/_reshape_alias_copy.h>
@@ -285,12 +292,12 @@
 #include <ATen/ops/_rowwise_prune.h>
 #include <ATen/ops/_sample_dirichlet.h>
 #include <ATen/ops/_saturate_weight_to_fp16.h>
-#include <ATen/ops/_scaled_dot_product_attention.h>
 #include <ATen/ops/_scaled_dot_product_attention_math.h>
 #include <ATen/ops/_scaled_dot_product_efficient_attention.h>
 #include <ATen/ops/_scaled_dot_product_efficient_attention_backward.h>
 #include <ATen/ops/_scaled_dot_product_flash_attention.h>
 #include <ATen/ops/_scaled_dot_product_flash_attention_backward.h>
+#include <ATen/ops/_scaled_mm.h>
 #include <ATen/ops/_segment_reduce_backward.h>
 #include <ATen/ops/_shape_as_tensor.h>
 #include <ATen/ops/_slow_conv2d_backward.h>
@@ -316,9 +323,11 @@
 #include <ATen/ops/_sparse_csr_tensor_unsafe.h>
 #include <ATen/ops/_sparse_log_softmax.h>
 #include <ATen/ops/_sparse_log_softmax_backward_data.h>
+#include <ATen/ops/_sparse_mask_projection.h>
 #include <ATen/ops/_sparse_mm.h>
 #include <ATen/ops/_sparse_mm_reduce_impl.h>
 #include <ATen/ops/_sparse_mm_reduce_impl_backward.h>
+#include <ATen/ops/_sparse_semi_structured_linear.h>
 #include <ATen/ops/_sparse_softmax.h>
 #include <ATen/ops/_sparse_softmax_backward_data.h>
 #include <ATen/ops/_sparse_sparse_matmul.h>
@@ -333,6 +342,7 @@
 #include <ATen/ops/_test_autograd_multiple_dispatch_view.h>
 #include <ATen/ops/_test_autograd_multiple_dispatch_view_copy.h>
 #include <ATen/ops/_test_check_tensor.h>
+#include <ATen/ops/_test_functorch_fallback.h>
 #include <ATen/ops/_test_optional_filled_intlist.h>
 #include <ATen/ops/_test_optional_floatlist.h>
 #include <ATen/ops/_test_optional_intlist.h>
@@ -349,8 +359,13 @@
 #include <ATen/ops/_to_copy.h>
 #include <ATen/ops/_to_cpu.h>
 #include <ATen/ops/_to_dense.h>
+#include <ATen/ops/_to_sparse.h>
+#include <ATen/ops/_to_sparse_bsc.h>
+#include <ATen/ops/_to_sparse_bsr.h>
+#include <ATen/ops/_to_sparse_csc.h>
+#include <ATen/ops/_to_sparse_csr.h>
+#include <ATen/ops/_to_sparse_semi_structured.h>
 #include <ATen/ops/_transform_bias_rescale_qkv.h>
-#include <ATen/ops/_transformer_decoder_only_layer_fwd.h>
 #include <ATen/ops/_transformer_encoder_layer_fwd.h>
 #include <ATen/ops/_trilinear.h>
 #include <ATen/ops/_triton_multi_head_attention.h>
@@ -358,6 +373,8 @@
 #include <ATen/ops/_unique.h>
 #include <ATen/ops/_unique2.h>
 #include <ATen/ops/_unpack_dual.h>
+#include <ATen/ops/_unsafe_index.h>
+#include <ATen/ops/_unsafe_index_put.h>
 #include <ATen/ops/_unsafe_view.h>
 #include <ATen/ops/_upsample_bicubic2d_aa.h>
 #include <ATen/ops/_upsample_bicubic2d_aa_backward.h>
@@ -594,6 +611,7 @@
 #include <ATen/ops/embedding_sparse_backward.h>
 #include <ATen/ops/empty.h>
 #include <ATen/ops/empty_like.h>
+#include <ATen/ops/empty_permuted.h>
 #include <ATen/ops/empty_quantized.h>
 #include <ATen/ops/empty_strided.h>
 #include <ATen/ops/eq.h>
@@ -963,6 +981,7 @@
 #include <ATen/ops/nll_loss_nd.h>
 #include <ATen/ops/nonzero.h>
 #include <ATen/ops/nonzero_numpy.h>
+#include <ATen/ops/nonzero_static.h>
 #include <ATen/ops/norm.h>
 #include <ATen/ops/norm_except_dim.h>
 #include <ATen/ops/normal.h>
@@ -1013,6 +1032,7 @@
 #include <ATen/ops/quantized_lstm_cell.h>
 #include <ATen/ops/quantized_max_pool1d.h>
 #include <ATen/ops/quantized_max_pool2d.h>
+#include <ATen/ops/quantized_max_pool3d.h>
 #include <ATen/ops/quantized_rnn_relu_cell.h>
 #include <ATen/ops/quantized_rnn_tanh_cell.h>
 #include <ATen/ops/rad2deg.h>
@@ -1211,6 +1231,11 @@
 #include <ATen/ops/svd.h>
 #include <ATen/ops/swapaxes.h>
 #include <ATen/ops/swapdims.h>
+#include <ATen/ops/sym_constrain_range.h>
+#include <ATen/ops/sym_numel.h>
+#include <ATen/ops/sym_size.h>
+#include <ATen/ops/sym_storage_offset.h>
+#include <ATen/ops/sym_stride.h>
 #include <ATen/ops/t.h>
 #include <ATen/ops/t_copy.h>
 #include <ATen/ops/take.h>

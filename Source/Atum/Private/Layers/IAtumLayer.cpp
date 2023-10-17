@@ -6,6 +6,7 @@
 #include "Macros/AtumMacrosLog.h"
 #include "Tensors/IAtumTensor.h"
 #include "UObject/Package.h"
+#include "Misc/Paths.h"
 
 TORCH_INCLUDES_START
 #include <torch/nn/module.h>
@@ -165,9 +166,18 @@ bool IAtumLayer::LoadFromFile_Implementation(const FString& RelativePath)
 {
 	if (!bInitialized)
 		return false;
-	
+
 	torch::serialize::InputArchive Archive;
-	Archive.load_from(TCHAR_TO_UTF8(*IAtumModule::GetContentDirectory(RelativePath)));
+	FString const FilePath = IAtumModule::GetContentDirectory(RelativePath);
+	
+	
+	if (!FPaths::FileExists(FilePath))
+    {
+    	// Handle the case where the file doesn't exist if needed
+    	UE_LOG(LogTemp, Warning, TEXT("File does not exist: %s"), *FilePath);
+    	return false;  // Skip this iteration, or you could return false if it's a fatal error
+    }
+	Archive.load_from(TCHAR_TO_UTF8(*FilePath));
 	
 	GetBaseModule()->load(Archive);
 	return true;

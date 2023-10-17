@@ -177,7 +177,7 @@ static at::Tensor squeeze_copy(const at::Tensor & self, at::IntArrayRef dim);
 static at::Tensor squeeze_copy(const at::Tensor & self, int64_t dim);
 static at::Tensor stack(at::TensorList tensors, int64_t dim);
 static at::Tensor std(const at::Tensor & self, at::OptionalIntArrayRef dim, bool unbiased, bool keepdim);
-static at::Tensor std(const at::Tensor & self, at::OptionalIntArrayRef dim, c10::optional<int64_t> correction, bool keepdim);
+static at::Tensor std(const at::Tensor & self, at::OptionalIntArrayRef dim, const c10::optional<at::Scalar> & correction, bool keepdim);
 static at::Tensor std(const at::Tensor & self, bool unbiased);
 static at::Tensor sub(const at::Tensor & self, const at::Tensor & other, const at::Scalar & alpha);
 static at::Tensor sum(const at::Tensor & self, at::OptionalIntArrayRef dim, bool keepdim, c10::optional<at::ScalarType> dtype);

@@ -53,11 +53,11 @@
 #include <ATen/ops/_pad_circular_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/_pad_enum_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/_pad_packed_sequence_compositeimplicitautograd_dispatch.h>
+#include <ATen/ops/_propagate_xla_data_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/_remove_batch_dim_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/_reshape_from_tensor_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/_rowwise_prune_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/_saturate_weight_to_fp16_compositeimplicitautograd_dispatch.h>
-#include <ATen/ops/_scaled_dot_product_attention_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/_scaled_dot_product_attention_math_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/_shape_as_tensor_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/_sobol_engine_draw_compositeimplicitautograd_dispatch.h>
@@ -467,6 +467,10 @@
 #include <ATen/ops/svd_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/swapaxes_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/swapdims_compositeimplicitautograd_dispatch.h>
+#include <ATen/ops/sym_numel_compositeimplicitautograd_dispatch.h>
+#include <ATen/ops/sym_size_compositeimplicitautograd_dispatch.h>
+#include <ATen/ops/sym_storage_offset_compositeimplicitautograd_dispatch.h>
+#include <ATen/ops/sym_stride_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/take_along_dim_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/tensor_split_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/tensordot_compositeimplicitautograd_dispatch.h>
@@ -476,6 +480,11 @@
 #include <ATen/ops/to_dense_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/to_dense_backward_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/to_mkldnn_backward_compositeimplicitautograd_dispatch.h>
+#include <ATen/ops/to_sparse_compositeimplicitautograd_dispatch.h>
+#include <ATen/ops/to_sparse_bsc_compositeimplicitautograd_dispatch.h>
+#include <ATen/ops/to_sparse_bsr_compositeimplicitautograd_dispatch.h>
+#include <ATen/ops/to_sparse_csc_compositeimplicitautograd_dispatch.h>
+#include <ATen/ops/to_sparse_csr_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/trace_backward_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/transpose_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/trapezoid_compositeimplicitautograd_dispatch.h>

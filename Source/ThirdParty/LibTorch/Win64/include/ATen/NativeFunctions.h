@@ -57,7 +57,6 @@
 #include <ATen/ops/_cdist_forward_native.h>
 #include <ATen/ops/_cholesky_solve_helper_native.h>
 #include <ATen/ops/_choose_qparams_per_tensor_native.h>
-#include <ATen/ops/_chunk_grad_outputs_efficient_attention_native.h>
 #include <ATen/ops/_coalesce_native.h>
 #include <ATen/ops/_coalesced_native.h>
 #include <ATen/ops/_compute_linear_combination_native.h>
@@ -110,6 +109,7 @@
 #include <ATen/ops/_fft_c2c_native.h>
 #include <ATen/ops/_fft_c2r_native.h>
 #include <ATen/ops/_fft_r2c_native.h>
+#include <ATen/ops/_fill_mem_eff_dropout_mask_native.h>
 #include <ATen/ops/_flash_attention_backward_native.h>
 #include <ATen/ops/_flash_attention_forward_native.h>
 #include <ATen/ops/_foobar_native.h>
@@ -143,9 +143,11 @@
 #include <ATen/ops/_foreach_mul_native.h>
 #include <ATen/ops/_foreach_neg_native.h>
 #include <ATen/ops/_foreach_norm_native.h>
+#include <ATen/ops/_foreach_pow_native.h>
 #include <ATen/ops/_foreach_reciprocal_native.h>
 #include <ATen/ops/_foreach_round_native.h>
 #include <ATen/ops/_foreach_sigmoid_native.h>
+#include <ATen/ops/_foreach_sign_native.h>
 #include <ATen/ops/_foreach_sin_native.h>
 #include <ATen/ops/_foreach_sinh_native.h>
 #include <ATen/ops/_foreach_sqrt_native.h>
@@ -154,6 +156,8 @@
 #include <ATen/ops/_foreach_tanh_native.h>
 #include <ATen/ops/_foreach_trunc_native.h>
 #include <ATen/ops/_foreach_zero_native.h>
+#include <ATen/ops/_functional_assert_async_native.h>
+#include <ATen/ops/_functional_sym_constrain_range_native.h>
 #include <ATen/ops/_fused_adam_native.h>
 #include <ATen/ops/_fused_adamw_native.h>
 #include <ATen/ops/_fused_dropout_native.h>
@@ -172,6 +176,7 @@
 #include <ATen/ops/_index_put_impl_native.h>
 #include <ATen/ops/_indices_native.h>
 #include <ATen/ops/_indices_copy_native.h>
+#include <ATen/ops/_int_mm_native.h>
 #include <ATen/ops/_is_all_true_native.h>
 #include <ATen/ops/_is_any_true_native.h>
 #include <ATen/ops/_is_zerotensor_native.h>
@@ -187,6 +192,7 @@
 #include <ATen/ops/_logcumsumexp_native.h>
 #include <ATen/ops/_lstm_mps_native.h>
 #include <ATen/ops/_lu_with_info_native.h>
+#include <ATen/ops/_make_dep_token_native.h>
 #include <ATen/ops/_make_dual_native.h>
 #include <ATen/ops/_make_dual_copy_native.h>
 #include <ATen/ops/_make_per_channel_quantized_tensor_native.h>
@@ -199,7 +205,7 @@
 #include <ATen/ops/_mps_convolution_native.h>
 #include <ATen/ops/_mps_convolution_transpose_native.h>
 #include <ATen/ops/_native_batch_norm_legit_native.h>
-#include <ATen/ops/_native_decoder_only_multi_head_attention_native.h>
+#include <ATen/ops/_native_batch_norm_legit_no_training_native.h>
 #include <ATen/ops/_native_multi_head_attention_native.h>
 #include <ATen/ops/_neg_view_native.h>
 #include <ATen/ops/_neg_view_copy_native.h>
@@ -210,9 +216,9 @@
 #include <ATen/ops/_nested_tensor_from_mask_native.h>
 #include <ATen/ops/_nested_tensor_from_mask_left_aligned_native.h>
 #include <ATen/ops/_nested_tensor_from_tensor_list_native.h>
-#include <ATen/ops/_nested_tensor_offsets_native.h>
 #include <ATen/ops/_nested_tensor_size_native.h>
 #include <ATen/ops/_nested_tensor_softmax_with_shape_native.h>
+#include <ATen/ops/_nested_tensor_storage_offsets_native.h>
 #include <ATen/ops/_nested_tensor_strides_native.h>
 #include <ATen/ops/_nested_view_from_buffer_native.h>
 #include <ATen/ops/_nested_view_from_buffer_copy_native.h>
@@ -230,6 +236,7 @@
 #include <ATen/ops/_pin_memory_native.h>
 #include <ATen/ops/_prelu_kernel_native.h>
 #include <ATen/ops/_prelu_kernel_backward_native.h>
+#include <ATen/ops/_propagate_xla_data_native.h>
 #include <ATen/ops/_remove_batch_dim_native.h>
 #include <ATen/ops/_reshape_alias_native.h>
 #include <ATen/ops/_reshape_alias_copy_native.h>
@@ -239,12 +246,12 @@
 #include <ATen/ops/_rowwise_prune_native.h>
 #include <ATen/ops/_sample_dirichlet_native.h>
 #include <ATen/ops/_saturate_weight_to_fp16_native.h>
-#include <ATen/ops/_scaled_dot_product_attention_native.h>
 #include <ATen/ops/_scaled_dot_product_attention_math_native.h>
 #include <ATen/ops/_scaled_dot_product_efficient_attention_native.h>
 #include <ATen/ops/_scaled_dot_product_efficient_attention_backward_native.h>
 #include <ATen/ops/_scaled_dot_product_flash_attention_native.h>
 #include <ATen/ops/_scaled_dot_product_flash_attention_backward_native.h>
+#include <ATen/ops/_scaled_mm_native.h>
 #include <ATen/ops/_segment_reduce_backward_native.h>
 #include <ATen/ops/_shape_as_tensor_native.h>
 #include <ATen/ops/_slow_conv2d_backward_native.h>
@@ -270,9 +277,11 @@
 #include <ATen/ops/_sparse_csr_tensor_unsafe_native.h>
 #include <ATen/ops/_sparse_log_softmax_native.h>
 #include <ATen/ops/_sparse_log_softmax_backward_data_native.h>
+#include <ATen/ops/_sparse_mask_projection_native.h>
 #include <ATen/ops/_sparse_mm_native.h>
 #include <ATen/ops/_sparse_mm_reduce_impl_native.h>
 #include <ATen/ops/_sparse_mm_reduce_impl_backward_native.h>
+#include <ATen/ops/_sparse_semi_structured_linear_native.h>
 #include <ATen/ops/_sparse_softmax_native.h>
 #include <ATen/ops/_sparse_softmax_backward_data_native.h>
 #include <ATen/ops/_sparse_sparse_matmul_native.h>
@@ -287,6 +296,7 @@
 #include <ATen/ops/_test_autograd_multiple_dispatch_view_native.h>
 #include <ATen/ops/_test_autograd_multiple_dispatch_view_copy_native.h>
 #include <ATen/ops/_test_check_tensor_native.h>
+#include <ATen/ops/_test_functorch_fallback_native.h>
 #include <ATen/ops/_test_optional_filled_intlist_native.h>
 #include <ATen/ops/_test_optional_floatlist_native.h>
 #include <ATen/ops/_test_optional_intlist_native.h>
@@ -303,8 +313,13 @@
 #include <ATen/ops/_to_copy_native.h>
 #include <ATen/ops/_to_cpu_native.h>
 #include <ATen/ops/_to_dense_native.h>
+#include <ATen/ops/_to_sparse_native.h>
+#include <ATen/ops/_to_sparse_bsc_native.h>
+#include <ATen/ops/_to_sparse_bsr_native.h>
+#include <ATen/ops/_to_sparse_csc_native.h>
+#include <ATen/ops/_to_sparse_csr_native.h>
+#include <ATen/ops/_to_sparse_semi_structured_native.h>
 #include <ATen/ops/_transform_bias_rescale_qkv_native.h>
-#include <ATen/ops/_transformer_decoder_only_layer_fwd_native.h>
 #include <ATen/ops/_transformer_encoder_layer_fwd_native.h>
 #include <ATen/ops/_trilinear_native.h>
 #include <ATen/ops/_triton_multi_head_attention_native.h>
@@ -312,6 +327,8 @@
 #include <ATen/ops/_unique_native.h>
 #include <ATen/ops/_unique2_native.h>
 #include <ATen/ops/_unpack_dual_native.h>
+#include <ATen/ops/_unsafe_index_native.h>
+#include <ATen/ops/_unsafe_index_put_native.h>
 #include <ATen/ops/_unsafe_view_native.h>
 #include <ATen/ops/_upsample_bicubic2d_aa_native.h>
 #include <ATen/ops/_upsample_bicubic2d_aa_backward_native.h>
@@ -548,6 +565,7 @@
 #include <ATen/ops/embedding_sparse_backward_native.h>
 #include <ATen/ops/empty_native.h>
 #include <ATen/ops/empty_like_native.h>
+#include <ATen/ops/empty_permuted_native.h>
 #include <ATen/ops/empty_quantized_native.h>
 #include <ATen/ops/empty_strided_native.h>
 #include <ATen/ops/eq_native.h>
@@ -917,6 +935,7 @@
 #include <ATen/ops/nll_loss_nd_native.h>
 #include <ATen/ops/nonzero_native.h>
 #include <ATen/ops/nonzero_numpy_native.h>
+#include <ATen/ops/nonzero_static_native.h>
 #include <ATen/ops/norm_native.h>
 #include <ATen/ops/norm_except_dim_native.h>
 #include <ATen/ops/normal_native.h>
@@ -967,6 +986,7 @@
 #include <ATen/ops/quantized_lstm_cell_native.h>
 #include <ATen/ops/quantized_max_pool1d_native.h>
 #include <ATen/ops/quantized_max_pool2d_native.h>
+#include <ATen/ops/quantized_max_pool3d_native.h>
 #include <ATen/ops/quantized_rnn_relu_cell_native.h>
 #include <ATen/ops/quantized_rnn_tanh_cell_native.h>
 #include <ATen/ops/rad2deg_native.h>
@@ -1165,6 +1185,11 @@
 #include <ATen/ops/svd_native.h>
 #include <ATen/ops/swapaxes_native.h>
 #include <ATen/ops/swapdims_native.h>
+#include <ATen/ops/sym_constrain_range_native.h>
+#include <ATen/ops/sym_numel_native.h>
+#include <ATen/ops/sym_size_native.h>
+#include <ATen/ops/sym_storage_offset_native.h>
+#include <ATen/ops/sym_stride_native.h>
 #include <ATen/ops/t_native.h>
 #include <ATen/ops/t_copy_native.h>
 #include <ATen/ops/take_native.h>

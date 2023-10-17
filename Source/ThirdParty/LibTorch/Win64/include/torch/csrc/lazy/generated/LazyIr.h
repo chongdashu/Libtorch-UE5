@@ -8601,18 +8601,17 @@ class StdCorrection : public TsNode {
     return torch::lazy::OpKind(at::aten::std);
   }
 
-  StdCorrection(const torch::lazy::Value& self, const c10::optional<::std::vector<int64_t>>& dim, const c10::optional<int64_t>& correction, const bool& keepdim, std::vector<torch::lazy::Shape>&& shapes)
+  StdCorrection(const torch::lazy::Value& self, const c10::optional<::std::vector<int64_t>>& dim, const c10::optional<torch::lazy::Value>& correction, const bool& keepdim, std::vector<torch::lazy::Shape>&& shapes)
       : TsNode(
               StdCorrection::ClassOpKind(),
-              OpList{self},
+              OpList{self, correction.value_or(kNullValue)},
               std::move(shapes),
               /* num_outputs */ 1,
-              torch::lazy::MHash(dim, correction, keepdim)),
+              torch::lazy::MHash(dim, keepdim)),
         dim(dim),
-        correction(correction),
         keepdim(keepdim)
   {
-    
+    has_correction = !!correction;
   }
 
   std::string ToString() const override {
@@ -8623,22 +8622,17 @@ class StdCorrection : public TsNode {
     } else {
       ss << ", dim=null";
     }
-    if (correction.has_value()) {
-      ss << ", correction=" << correction.value();
-    } else {
-      ss << ", correction=null";
-    }
     ss << ", keepdim=" << keepdim;
     return ss.str();
   }
 
   
 
-  bool CanBeReused(const torch::lazy::Value& self, const c10::optional<::std::vector<int64_t>>& dim, const c10::optional<int64_t>& correction, const bool& keepdim) const {
+  bool CanBeReused(const torch::lazy::Value& self, const c10::optional<::std::vector<int64_t>>& dim, const c10::optional<torch::lazy::Value>& correction, const bool& keepdim) const {
     size_t i = 0;
     return (operand(i++) == self &&
+        nullable_operand(i++) == correction.value_or(kNullValue) &&
         ((!this->dim&&!dim) || (this->dim&&dim && *(this->dim) == *dim)) &&
-        ((!this->correction&&!correction) || (this->correction&&correction && *(this->correction) == *correction)) &&
         this->keepdim == keepdim);
   }
 
@@ -8653,7 +8647,7 @@ class StdCorrection : public TsNode {
     size_t i = 0;
     arguments.emplace_back(loctx->GetOutputOp(operand(i++)));
     arguments.emplace_back("dim", dim);
-    kwarguments.emplace_back("correction", correction);
+    kwarguments.emplace_back("correction", has_correction ? loctx->GetOutputOp(operand(i++)) : nullptr);
     kwarguments.emplace_back("keepdim", keepdim);
     torch::lazy::TSOpVector std_out = torch::lazy::LowerTSBuiltin(function, op().op, arguments, kwarguments);
     TORCH_CHECK_EQ(std_out.size(), 1);
@@ -8664,9 +8658,8 @@ class StdCorrection : public TsNode {
             
 
   c10::optional<::std::vector<int64_t>> dim;
-  c10::optional<int64_t> correction;
   bool keepdim;
-  
+  bool has_correction: 1;
 
 };
 

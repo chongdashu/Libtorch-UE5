@@ -22,9 +22,26 @@
 namespace at {
 
 
-// aten::conv3d(Tensor input, Tensor weight, Tensor? bias=None, int[3] stride=1, int[3] padding=0, int[3] dilation=1, int groups=1) -> Tensor
+// aten::conv3d(Tensor input, Tensor weight, Tensor? bias=None, int[3] stride=1, SymInt[3] padding=0, int[3] dilation=1, int groups=1) -> Tensor
 inline at::Tensor conv3d(const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, at::IntArrayRef padding=0, at::IntArrayRef dilation=1, int64_t groups=1) {
+    return at::_ops::conv3d::call(input, weight, bias, stride, c10::fromIntArrayRefSlow(padding), dilation, groups);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor conv3d(const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, at::IntArrayRef padding=0, at::IntArrayRef dilation=1, int64_t groups=1) {
+    return at::_ops::conv3d::call(input, weight, bias, stride, c10::fromIntArrayRefSlow(padding), dilation, groups);
+  }
+}
+
+// aten::conv3d(Tensor input, Tensor weight, Tensor? bias=None, int[3] stride=1, SymInt[3] padding=0, int[3] dilation=1, int groups=1) -> Tensor
+inline at::Tensor conv3d_symint(const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, c10::SymIntArrayRef padding=c10::SymInt(0), at::IntArrayRef dilation=1, int64_t groups=1) {
     return at::_ops::conv3d::call(input, weight, bias, stride, padding, dilation, groups);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor conv3d(const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, c10::SymIntArrayRef padding=c10::SymInt(0), at::IntArrayRef dilation=1, int64_t groups=1) {
+    return at::_ops::conv3d::call(input, weight, bias, stride, padding, dilation, groups);
+  }
 }
 
 // aten::conv3d.padding(Tensor input, Tensor weight, Tensor? bias=None, int[3] stride=1, str padding="valid", int[3] dilation=1, int groups=1) -> Tensor
