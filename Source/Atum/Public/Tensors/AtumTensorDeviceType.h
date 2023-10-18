@@ -4,9 +4,9 @@
 
 #include "Macros/AtumMacrosGuards.h"
 
-TORCH_INCLUDES_START
+
 #include <c10/core/DeviceType.h>
-TORCH_INCLUDES_END
+
 
 #include "AtumTensorDeviceType.generated.h"
 

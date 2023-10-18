@@ -4,9 +4,11 @@
 
 #include "Macros/AtumMacrosGuards.h"
 
+#include "GenericPlatform/GenericPlatformCompilerPreSetup.h"
 TORCH_INCLUDES_START
 #include <c10/core/ScalarType.h>
 TORCH_INCLUDES_END
+
 
 #include "AtumTensorScalarType.generated.h"
 
