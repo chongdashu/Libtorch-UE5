@@ -149,6 +149,15 @@ public:
 	UE_NODISCARD
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor")
 	virtual EAtumTensorScalarType GetScalarType() const noexcept;
+
+	/**
+	 * Sets the type of value this tensor holds
+	 *
+	 * @param Value Scalar type
+	 */
+	UE_NODISCARD
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor")
+	virtual void SetScalarType(EAtumTensorScalarType Value) noexcept;
 	
 	/**
 	 * Gets how many scalar values are being held in the tensor

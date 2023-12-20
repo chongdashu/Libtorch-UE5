@@ -74,7 +74,6 @@ class TORCH_API Module : public std::enable_shared_from_this<Module> {
   using NamedModulePointerApplyFunction =
       std::function<void(const std::string&, const std::shared_ptr<Module>&)>;
 
-  friend class IAtumLayer;
   /// Tells the base `Module` about the name of the submodule.
   explicit Module(std::string name);
 
@@ -551,6 +550,8 @@ class TORCH_API Module : public std::enable_shared_from_this<Module> {
 
  private:
   // Friend classes.
+
+    friend class IAtumLayer;
 
   template <typename Derived>
   friend class Cloneable;

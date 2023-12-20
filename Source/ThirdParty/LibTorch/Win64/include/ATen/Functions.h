@@ -117,6 +117,8 @@
 #include <ATen/ops/_convolution_mode.h>
 #include <ATen/ops/_copy_from.h>
 #include <ATen/ops/_copy_from_and_resize.h>
+#include <ATen/ops/_cslt_compress.h>
+#include <ATen/ops/_cslt_sparse_mm.h>
 #include <ATen/ops/_ctc_loss.h>
 #include <ATen/ops/_ctc_loss_backward.h>
 #include <ATen/ops/_cudnn_ctc_loss.h>
@@ -169,6 +171,7 @@
 #include <ATen/ops/_foreach_ceil.h>
 #include <ATen/ops/_foreach_clamp_max.h>
 #include <ATen/ops/_foreach_clamp_min.h>
+#include <ATen/ops/_foreach_copy.h>
 #include <ATen/ops/_foreach_cos.h>
 #include <ATen/ops/_foreach_cosh.h>
 #include <ATen/ops/_foreach_div.h>
@@ -204,6 +207,7 @@
 #include <ATen/ops/_foreach_zero.h>
 #include <ATen/ops/_functional_assert_async.h>
 #include <ATen/ops/_functional_sym_constrain_range.h>
+#include <ATen/ops/_functional_sym_constrain_range_for_size.h>
 #include <ATen/ops/_fused_adam.h>
 #include <ATen/ops/_fused_adamw.h>
 #include <ATen/ops/_fused_dropout.h>
@@ -1232,6 +1236,7 @@
 #include <ATen/ops/swapaxes.h>
 #include <ATen/ops/swapdims.h>
 #include <ATen/ops/sym_constrain_range.h>
+#include <ATen/ops/sym_constrain_range_for_size.h>
 #include <ATen/ops/sym_numel.h>
 #include <ATen/ops/sym_size.h>
 #include <ATen/ops/sym_storage_offset.h>

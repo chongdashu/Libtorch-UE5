@@ -61,6 +61,7 @@
 #include <ATen/ops/_foreach_ceil_cpu_dispatch.h>
 #include <ATen/ops/_foreach_clamp_max_cpu_dispatch.h>
 #include <ATen/ops/_foreach_clamp_min_cpu_dispatch.h>
+#include <ATen/ops/_foreach_copy_cpu_dispatch.h>
 #include <ATen/ops/_foreach_cos_cpu_dispatch.h>
 #include <ATen/ops/_foreach_cosh_cpu_dispatch.h>
 #include <ATen/ops/_foreach_div_cpu_dispatch.h>
@@ -95,7 +96,6 @@
 #include <ATen/ops/_foreach_trunc_cpu_dispatch.h>
 #include <ATen/ops/_foreach_zero_cpu_dispatch.h>
 #include <ATen/ops/_functional_assert_async_cpu_dispatch.h>
-#include <ATen/ops/_functional_sym_constrain_range_cpu_dispatch.h>
 #include <ATen/ops/_fused_moving_avg_obs_fq_helper_cpu_dispatch.h>
 #include <ATen/ops/_fused_sdp_choice_cpu_dispatch.h>
 #include <ATen/ops/_histogramdd_bin_edges_cpu_dispatch.h>
@@ -128,6 +128,8 @@
 #include <ATen/ops/_prelu_kernel_backward_cpu_dispatch.h>
 #include <ATen/ops/_reshape_alias_cpu_dispatch.h>
 #include <ATen/ops/_sample_dirichlet_cpu_dispatch.h>
+#include <ATen/ops/_scaled_dot_product_flash_attention_cpu_dispatch.h>
+#include <ATen/ops/_scaled_dot_product_flash_attention_backward_cpu_dispatch.h>
 #include <ATen/ops/_segment_reduce_backward_cpu_dispatch.h>
 #include <ATen/ops/_slow_conv2d_backward_cpu_dispatch.h>
 #include <ATen/ops/_slow_conv2d_forward_cpu_dispatch.h>
@@ -519,7 +521,6 @@
 #include <ATen/ops/std_mean_cpu_dispatch.h>
 #include <ATen/ops/sub_cpu_dispatch.h>
 #include <ATen/ops/sum_cpu_dispatch.h>
-#include <ATen/ops/sym_constrain_range_cpu_dispatch.h>
 #include <ATen/ops/take_cpu_dispatch.h>
 #include <ATen/ops/tan_cpu_dispatch.h>
 #include <ATen/ops/tanh_cpu_dispatch.h>

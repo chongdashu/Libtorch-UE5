@@ -414,7 +414,6 @@
 #include <ATen/ops/sort_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/sparse_bsc_tensor_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/sparse_bsr_tensor_compositeimplicitautograd_dispatch.h>
-#include <ATen/ops/sparse_compressed_tensor_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/sparse_coo_tensor_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/sparse_csc_tensor_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/sparse_csr_tensor_compositeimplicitautograd_dispatch.h>

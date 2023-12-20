@@ -120,6 +120,19 @@ void IAtumTensor::SetDeviceType(const EAtumTensorDeviceType Value) noexcept
 	}
 }
 
+
+void IAtumTensor::SetScalarType(const EAtumTensorScalarType Value) noexcept
+{
+	if (Data)
+	{
+		Data->to(AtumEnums::Cast(Value));
+	}
+	else
+	{
+		ScalarType = Value;
+	}
+}
+
 EAtumTensorScalarType IAtumTensor::GetScalarType() const noexcept
 {
 	return ScalarType == EAtumTensorScalarType::Undefined ? AtumEnums::Cast(Data->scalar_type()) : ScalarType;

@@ -71,6 +71,8 @@
 #include <ATen/ops/_convolution_mode_native.h>
 #include <ATen/ops/_copy_from_native.h>
 #include <ATen/ops/_copy_from_and_resize_native.h>
+#include <ATen/ops/_cslt_compress_native.h>
+#include <ATen/ops/_cslt_sparse_mm_native.h>
 #include <ATen/ops/_ctc_loss_native.h>
 #include <ATen/ops/_ctc_loss_backward_native.h>
 #include <ATen/ops/_cudnn_ctc_loss_native.h>
@@ -123,6 +125,7 @@
 #include <ATen/ops/_foreach_ceil_native.h>
 #include <ATen/ops/_foreach_clamp_max_native.h>
 #include <ATen/ops/_foreach_clamp_min_native.h>
+#include <ATen/ops/_foreach_copy_native.h>
 #include <ATen/ops/_foreach_cos_native.h>
 #include <ATen/ops/_foreach_cosh_native.h>
 #include <ATen/ops/_foreach_div_native.h>
@@ -158,6 +161,7 @@
 #include <ATen/ops/_foreach_zero_native.h>
 #include <ATen/ops/_functional_assert_async_native.h>
 #include <ATen/ops/_functional_sym_constrain_range_native.h>
+#include <ATen/ops/_functional_sym_constrain_range_for_size_native.h>
 #include <ATen/ops/_fused_adam_native.h>
 #include <ATen/ops/_fused_adamw_native.h>
 #include <ATen/ops/_fused_dropout_native.h>
@@ -1186,6 +1190,7 @@
 #include <ATen/ops/swapaxes_native.h>
 #include <ATen/ops/swapdims_native.h>
 #include <ATen/ops/sym_constrain_range_native.h>
+#include <ATen/ops/sym_constrain_range_for_size_native.h>
 #include <ATen/ops/sym_numel_native.h>
 #include <ATen/ops/sym_size_native.h>
 #include <ATen/ops/sym_storage_offset_native.h>

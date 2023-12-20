@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include <string>
+
 #include "Serializable/IAtumSerializable.h"
 
 #include <vector>
@@ -60,7 +62,9 @@ public:
 	 */
 	UE_NODISCARD_CTOR
 	IAtumLayer() noexcept;
-	
+
+
+
 	/**
 	 * Initialises the layer based on its options only once
 	 * 

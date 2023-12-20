@@ -32,6 +32,8 @@
 #include <ATen/ops/_conv_depthwise2d_cuda_dispatch.h>
 #include <ATen/ops/_convert_indices_from_coo_to_csr_cuda_dispatch.h>
 #include <ATen/ops/_convert_indices_from_csr_to_coo_cuda_dispatch.h>
+#include <ATen/ops/_cslt_compress_cuda_dispatch.h>
+#include <ATen/ops/_cslt_sparse_mm_cuda_dispatch.h>
 #include <ATen/ops/_ctc_loss_cuda_dispatch.h>
 #include <ATen/ops/_ctc_loss_backward_cuda_dispatch.h>
 #include <ATen/ops/_cudnn_ctc_loss_cuda_dispatch.h>
@@ -70,6 +72,7 @@
 #include <ATen/ops/_foreach_ceil_cuda_dispatch.h>
 #include <ATen/ops/_foreach_clamp_max_cuda_dispatch.h>
 #include <ATen/ops/_foreach_clamp_min_cuda_dispatch.h>
+#include <ATen/ops/_foreach_copy_cuda_dispatch.h>
 #include <ATen/ops/_foreach_cos_cuda_dispatch.h>
 #include <ATen/ops/_foreach_cosh_cuda_dispatch.h>
 #include <ATen/ops/_foreach_div_cuda_dispatch.h>
@@ -555,7 +558,6 @@
 #include <ATen/ops/std_mean_cuda_dispatch.h>
 #include <ATen/ops/sub_cuda_dispatch.h>
 #include <ATen/ops/sum_cuda_dispatch.h>
-#include <ATen/ops/sym_constrain_range_cuda_dispatch.h>
 #include <ATen/ops/take_cuda_dispatch.h>
 #include <ATen/ops/tan_cuda_dispatch.h>
 #include <ATen/ops/tanh_cuda_dispatch.h>

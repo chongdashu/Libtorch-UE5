@@ -16,7 +16,7 @@
 /* #undef CAFFE2_THREADPOOL_STATS */
 #define CAFFE2_USE_EXCEPTION_PTR
 /* #undef CAFFE2_USE_ACCELERATE */
-/* #undef CAFFE2_USE_CUDNN */
+#define CAFFE2_USE_CUDNN
 /* #undef CAFFE2_USE_EIGEN_FOR_BLAS */
 /* #undef CAFFE2_USE_FBCODE */
 /* #undef CAFFE2_USE_GOOGLE_GLOG */
@@ -40,12 +40,12 @@
   {"BUILD_TYPE", "Release"}, \
   {"BLAS_INFO", "mkl"}, \
   {"LAPACK_INFO", "mkl"}, \
-  {"USE_CUDA", "0"}, \
+  {"USE_CUDA", "ON"}, \
   {"USE_ROCM", "OFF"}, \
-  {"CUDA_VERSION", ""}, \
+  {"CUDA_VERSION", "12.1"}, \
   {"ROCM_VERSION", ""}, \
-  {"USE_CUDNN", "OFF"}, \
-  {"CUDNN_VERSION", ""}, \
+  {"USE_CUDNN", "ON"}, \
+  {"CUDNN_VERSION", "8.8.1"}, \
   {"USE_NCCL", "OFF"}, \
   {"USE_MPI", "OFF"}, \
   {"USE_GFLAGS", "OFF"}, \

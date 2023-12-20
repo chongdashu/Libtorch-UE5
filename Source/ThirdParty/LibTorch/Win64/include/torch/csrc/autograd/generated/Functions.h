@@ -7467,6 +7467,27 @@ struct TORCH_API SparseCooTensorWithDimsAndTensorsBackward0 : public TraceableFu
 
 };
 #ifdef _WIN32
+struct SparseCompressedTensorBackward0 : public TraceableFunction {
+  TORCH_API SparseCompressedTensorBackward0() = default;
+#else
+struct TORCH_API SparseCompressedTensorBackward0 : public TraceableFunction {
+#endif
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "SparseCompressedTensorBackward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    values_.reset_data();
+    result_.reset_data();
+  }
+
+  void compiled_args(CompiledNodeArgs& args) override;
+  variable_list apply_with_saved(const variable_list& inputs, SwapSavedVariables& saved) override;
+  SavedVariable values_;
+  SavedVariable result_;
+
+};
+#ifdef _WIN32
 struct SparseSumBackward0 : public TraceableFunction {
   TORCH_API SparseSumBackward0() = default;
 #else
@@ -12486,6 +12507,32 @@ struct TORCH_API ForeachMaximumBackward1 : public TraceableFunction {
   size_t self_size_;
 };
 #ifdef _WIN32
+struct ForeachNormBackward0 : public TraceableFunction {
+  TORCH_API ForeachNormBackward0() = default;
+#else
+struct TORCH_API ForeachNormBackward0 : public TraceableFunction {
+#endif
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachNormBackward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    self_.clear();
+    self_released_ = true;
+    result_.clear();
+    result_released_ = true;
+  }
+
+  void compiled_args(CompiledNodeArgs& args) override;
+  variable_list apply_with_saved(const variable_list& inputs, SwapSavedVariables& saved) override;
+  at::Scalar ord;
+  std::vector<SavedVariable> self_;
+  bool self_released_ = false;
+  std::vector<SavedVariable> result_;
+  bool result_released_ = false;
+  size_t self_size_;
+};
+#ifdef _WIN32
 struct AliasBackward0_copy : public TraceableFunction {
   TORCH_API AliasBackward0_copy() = default;
 #else
@@ -14139,32 +14186,6 @@ struct TORCH_API ForeachNegBackward0 : public TraceableFunction {
   void compiled_args(CompiledNodeArgs& args) override;
   variable_list apply_with_saved(const variable_list& inputs, SwapSavedVariables& saved) override;
 
-  size_t self_size_;
-};
-#ifdef _WIN32
-struct ForeachNormBackward0Scalar : public TraceableFunction {
-  TORCH_API ForeachNormBackward0Scalar() = default;
-#else
-struct TORCH_API ForeachNormBackward0Scalar : public TraceableFunction {
-#endif
-  using TraceableFunction::TraceableFunction;
-  variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "ForeachNormBackward0Scalar"; }
-  void release_variables() override {
-    std::lock_guard<std::mutex> lock(mutex_);
-    self_.clear();
-    self_released_ = true;
-    result_.clear();
-    result_released_ = true;
-  }
-
-  void compiled_args(CompiledNodeArgs& args) override;
-  variable_list apply_with_saved(const variable_list& inputs, SwapSavedVariables& saved) override;
-  at::Scalar ord;
-  std::vector<SavedVariable> self_;
-  bool self_released_ = false;
-  std::vector<SavedVariable> result_;
-  bool result_released_ = false;
   size_t self_size_;
 };
 #ifdef _WIN32

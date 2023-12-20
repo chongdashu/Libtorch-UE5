@@ -50,6 +50,8 @@
 #include <ATen/ops/_convolution_mode_meta.h>
 #include <ATen/ops/_copy_from_meta.h>
 #include <ATen/ops/_copy_from_and_resize_meta.h>
+#include <ATen/ops/_cslt_compress_meta.h>
+#include <ATen/ops/_cslt_sparse_mm_meta.h>
 #include <ATen/ops/_ctc_loss_meta.h>
 #include <ATen/ops/_ctc_loss_backward_meta.h>
 #include <ATen/ops/_cudnn_ctc_loss_meta.h>
@@ -102,6 +104,7 @@
 #include <ATen/ops/_foreach_ceil_meta.h>
 #include <ATen/ops/_foreach_clamp_max_meta.h>
 #include <ATen/ops/_foreach_clamp_min_meta.h>
+#include <ATen/ops/_foreach_copy_meta.h>
 #include <ATen/ops/_foreach_cos_meta.h>
 #include <ATen/ops/_foreach_cosh_meta.h>
 #include <ATen/ops/_foreach_div_meta.h>
@@ -137,6 +140,7 @@
 #include <ATen/ops/_foreach_zero_meta.h>
 #include <ATen/ops/_functional_assert_async_meta.h>
 #include <ATen/ops/_functional_sym_constrain_range_meta.h>
+#include <ATen/ops/_functional_sym_constrain_range_for_size_meta.h>
 #include <ATen/ops/_fused_adam_meta.h>
 #include <ATen/ops/_fused_adamw_meta.h>
 #include <ATen/ops/_fused_dropout_meta.h>
@@ -1165,6 +1169,7 @@
 #include <ATen/ops/swapaxes_meta.h>
 #include <ATen/ops/swapdims_meta.h>
 #include <ATen/ops/sym_constrain_range_meta.h>
+#include <ATen/ops/sym_constrain_range_for_size_meta.h>
 #include <ATen/ops/sym_numel_meta.h>
 #include <ATen/ops/sym_size_meta.h>
 #include <ATen/ops/sym_storage_offset_meta.h>

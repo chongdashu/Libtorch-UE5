@@ -16,6 +16,6 @@
 
 namespace at {
 namespace native {
-TORCH_API at::Tensor _functional_sym_constrain_range_cpu(const at::Scalar & size, c10::optional<int64_t> min, c10::optional<int64_t> max, const at::Tensor & dep_token);
+TORCH_API at::Tensor _functional_sym_constrain_range(const at::Scalar & size, c10::optional<int64_t> min, c10::optional<int64_t> max, const at::Tensor & dep_token);
 } // namespace native
 } // namespace at

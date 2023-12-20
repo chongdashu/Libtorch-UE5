@@ -163,9 +163,17 @@ bool IAtumLayer::SaveToFile_Implementation(const FString& RelativePath) const
 }
 
 bool IAtumLayer::LoadFromFile_Implementation(const FString& RelativePath)
+
+
 {
+
+	UE_LOG(LogTemp, Warning, TEXT("Loading from file: %s"), *RelativePath);
+	
 	if (!bInitialized)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Not initialized"));
 		return false;
+	}
 
 	torch::serialize::InputArchive Archive;
 	FString const FilePath = IAtumModule::GetContentDirectory(RelativePath);

@@ -73,6 +73,8 @@ _(aten, _convolution_double_backward) \
 _(aten, _convolution_mode) \
 _(aten, _copy_from) \
 _(aten, _copy_from_and_resize) \
+_(aten, _cslt_compress) \
+_(aten, _cslt_sparse_mm) \
 _(aten, _ctc_loss) \
 _(aten, _ctc_loss_backward) \
 _(aten, _cudnn_ctc_loss) \
@@ -136,6 +138,8 @@ _(aten, _foreach_clamp_max) \
 _(aten, _foreach_clamp_max_) \
 _(aten, _foreach_clamp_min) \
 _(aten, _foreach_clamp_min_) \
+_(aten, _foreach_copy) \
+_(aten, _foreach_copy_) \
 _(aten, _foreach_cos) \
 _(aten, _foreach_cos_) \
 _(aten, _foreach_cosh) \
@@ -203,6 +207,7 @@ _(aten, _foreach_zero) \
 _(aten, _foreach_zero_) \
 _(aten, _functional_assert_async) \
 _(aten, _functional_sym_constrain_range) \
+_(aten, _functional_sym_constrain_range_for_size) \
 _(aten, _fused_adam) \
 _(aten, _fused_adam_) \
 _(aten, _fused_adamw) \
@@ -1406,6 +1411,7 @@ _(aten, swapaxes_) \
 _(aten, swapdims) \
 _(aten, swapdims_) \
 _(aten, sym_constrain_range) \
+_(aten, sym_constrain_range_for_size) \
 _(aten, sym_numel) \
 _(aten, sym_size) \
 _(aten, sym_storage_offset) \
@@ -1615,6 +1621,7 @@ _(attr, col_indices) \
 _(attr, col_offsets) \
 _(attr, col_offsets_hh) \
 _(attr, col_offsets_ih) \
+_(attr, compressed_A) \
 _(attr, compressed_idx) \
 _(attr, compressed_indices) \
 _(attr, compressed_indices_dtype) \
@@ -1652,6 +1659,7 @@ _(attr, data) \
 _(attr, decimals) \
 _(attr, delta) \
 _(attr, dense) \
+_(attr, dense_B) \
 _(attr, dense_dim) \
 _(attr, density) \
 _(attr, dep_token) \
@@ -1803,6 +1811,7 @@ _(attr, inverse) \
 _(attr, invert) \
 _(attr, invstd) \
 _(attr, is_causal) \
+_(attr, is_coalesced) \
 _(attr, is_crow) \
 _(attr, is_matrix) \
 _(attr, is_result) \
@@ -2107,6 +2116,7 @@ _(attr, total_weight) \
 _(attr, train) \
 _(attr, training) \
 _(attr, transpose) \
+_(attr, transpose_result) \
 _(attr, transposed) \
 _(attr, type1) \
 _(attr, type2) \

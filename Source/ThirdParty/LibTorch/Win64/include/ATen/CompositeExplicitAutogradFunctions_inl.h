@@ -65,6 +65,7 @@
 #include <ATen/ops/_foreach_ceil_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/_foreach_clamp_max_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/_foreach_clamp_min_compositeexplicitautograd_dispatch.h>
+#include <ATen/ops/_foreach_copy_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/_foreach_cos_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/_foreach_cosh_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/_foreach_div_compositeexplicitautograd_dispatch.h>
@@ -98,6 +99,8 @@
 #include <ATen/ops/_foreach_tanh_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/_foreach_trunc_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/_foreach_zero_compositeexplicitautograd_dispatch.h>
+#include <ATen/ops/_functional_sym_constrain_range_compositeexplicitautograd_dispatch.h>
+#include <ATen/ops/_functional_sym_constrain_range_for_size_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/_fused_adam_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/_fused_adamw_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/_fused_dropout_compositeexplicitautograd_dispatch.h>
@@ -456,6 +459,7 @@
 #include <ATen/ops/soft_margin_loss_backward_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/softmax_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/sort_compositeexplicitautograd_dispatch.h>
+#include <ATen/ops/sparse_compressed_tensor_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/sparse_coo_tensor_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/sparse_mask_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/sparse_resize_compositeexplicitautograd_dispatch.h>
@@ -484,6 +488,8 @@
 #include <ATen/ops/std_mean_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/sub_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/sum_compositeexplicitautograd_dispatch.h>
+#include <ATen/ops/sym_constrain_range_compositeexplicitautograd_dispatch.h>
+#include <ATen/ops/sym_constrain_range_for_size_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/t_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/t_copy_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/to_mkldnn_compositeexplicitautograd_dispatch.h>

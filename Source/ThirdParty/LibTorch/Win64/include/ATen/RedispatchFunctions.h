@@ -192,14 +192,24 @@ namespace redispatch {
         return at::_ops::_assert_tensor_metadata::redispatch(dispatchKeySet, a, size, stride, dtype);
     }
     
-    // aten::sym_constrain_range(Scalar size, int? min=None, int? max=None) -> ()
+    // aten::sym_constrain_range(Scalar size, *, int? min=None, int? max=None) -> ()
     inline void sym_constrain_range(c10::DispatchKeySet dispatchKeySet, const at::Scalar & size, c10::optional<int64_t> min=c10::nullopt, c10::optional<int64_t> max=c10::nullopt) {
         return at::_ops::sym_constrain_range::redispatch(dispatchKeySet, size, min, max);
+    }
+    
+    // aten::sym_constrain_range_for_size(Scalar size, *, int? min, int? max) -> ()
+    inline void sym_constrain_range_for_size(c10::DispatchKeySet dispatchKeySet, const at::Scalar & size, c10::optional<int64_t> min, c10::optional<int64_t> max) {
+        return at::_ops::sym_constrain_range_for_size::redispatch(dispatchKeySet, size, min, max);
     }
     
     // aten::_functional_sym_constrain_range(Scalar size, int? min, int? max, Tensor dep_token) -> Tensor
     inline at::Tensor _functional_sym_constrain_range(c10::DispatchKeySet dispatchKeySet, const at::Scalar & size, c10::optional<int64_t> min, c10::optional<int64_t> max, const at::Tensor & dep_token) {
         return at::_ops::_functional_sym_constrain_range::redispatch(dispatchKeySet, size, min, max, dep_token);
+    }
+    
+    // aten::_functional_sym_constrain_range_for_size(Scalar size, int? min, int? max, Tensor dep_token) -> Tensor
+    inline at::Tensor _functional_sym_constrain_range_for_size(c10::DispatchKeySet dispatchKeySet, const at::Scalar & size, c10::optional<int64_t> min, c10::optional<int64_t> max, const at::Tensor & dep_token) {
+        return at::_ops::_functional_sym_constrain_range_for_size::redispatch(dispatchKeySet, size, min, max, dep_token);
     }
     
     // aten::_make_dep_token(*, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None, MemoryFormat? memory_format=None) -> Tensor
@@ -3647,23 +3657,23 @@ namespace redispatch {
         return at::_ops::_validate_compressed_sparse_indices::redispatch(dispatchKeySet, is_crow, compressed_idx, plain_idx, cdim, dim, nnz);
     }
     
-    // aten::_cufft_get_plan_cache_size(int device_index) -> int
-    inline int64_t _cufft_get_plan_cache_size(c10::DispatchKeySet dispatchKeySet, int64_t device_index) {
+    // aten::_cufft_get_plan_cache_size(DeviceIndex device_index) -> int
+    inline int64_t _cufft_get_plan_cache_size(c10::DispatchKeySet dispatchKeySet, at::DeviceIndex device_index) {
         return at::_ops::_cufft_get_plan_cache_size::redispatch(dispatchKeySet, device_index);
     }
     
-    // aten::_cufft_get_plan_cache_max_size(int device_index) -> int
-    inline int64_t _cufft_get_plan_cache_max_size(c10::DispatchKeySet dispatchKeySet, int64_t device_index) {
+    // aten::_cufft_get_plan_cache_max_size(DeviceIndex device_index) -> int
+    inline int64_t _cufft_get_plan_cache_max_size(c10::DispatchKeySet dispatchKeySet, at::DeviceIndex device_index) {
         return at::_ops::_cufft_get_plan_cache_max_size::redispatch(dispatchKeySet, device_index);
     }
     
-    // aten::_cufft_set_plan_cache_max_size(int device_index, int max_size) -> ()
-    inline void _cufft_set_plan_cache_max_size(c10::DispatchKeySet dispatchKeySet, int64_t device_index, int64_t max_size) {
+    // aten::_cufft_set_plan_cache_max_size(DeviceIndex device_index, int max_size) -> ()
+    inline void _cufft_set_plan_cache_max_size(c10::DispatchKeySet dispatchKeySet, at::DeviceIndex device_index, int64_t max_size) {
         return at::_ops::_cufft_set_plan_cache_max_size::redispatch(dispatchKeySet, device_index, max_size);
     }
     
-    // aten::_cufft_clear_plan_cache(int device_index) -> ()
-    inline void _cufft_clear_plan_cache(c10::DispatchKeySet dispatchKeySet, int64_t device_index) {
+    // aten::_cufft_clear_plan_cache(DeviceIndex device_index) -> ()
+    inline void _cufft_clear_plan_cache(c10::DispatchKeySet dispatchKeySet, at::DeviceIndex device_index) {
         return at::_ops::_cufft_clear_plan_cache::redispatch(dispatchKeySet, device_index);
     }
     
@@ -3990,6 +4000,16 @@ namespace redispatch {
     // aten::mkldnn_linear_backward(Tensor self, Tensor grad_output, Tensor weight, bool[3] output_mask) -> (Tensor, Tensor, Tensor)
     inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor> mkldnn_linear_backward(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & grad_output, const at::Tensor & weight, ::std::array<bool,3> output_mask) {
         return at::_ops::mkldnn_linear_backward::redispatch(dispatchKeySet, self, grad_output, weight, output_mask);
+    }
+    
+    // aten::_cslt_compress(Tensor input) -> Tensor
+    inline at::Tensor _cslt_compress(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input) {
+        return at::_ops::_cslt_compress::redispatch(dispatchKeySet, input);
+    }
+    
+    // aten::_cslt_sparse_mm(Tensor compressed_A, Tensor dense_B, Tensor? bias=None, bool transpose_result=False) -> Tensor
+    inline at::Tensor _cslt_sparse_mm(c10::DispatchKeySet dispatchKeySet, const at::Tensor & compressed_A, const at::Tensor & dense_B, const c10::optional<at::Tensor> & bias={}, bool transpose_result=false) {
+        return at::_ops::_cslt_sparse_mm::redispatch(dispatchKeySet, compressed_A, dense_B, bias, transpose_result);
     }
     
     // aten::_sparse_semi_structured_linear(Tensor input, Tensor weight, Tensor meta, *, Tensor? bias=None, str? activation=None) -> Tensor
@@ -8347,49 +8367,49 @@ namespace redispatch {
         return at::_ops::sparse_coo_tensor_size::redispatch(dispatchKeySet, size, dtype, layout, device, pin_memory);
     }
     
-    // aten::sparse_coo_tensor.indices(Tensor indices, Tensor values, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
-    inline at::Tensor sparse_coo_tensor(c10::DispatchKeySet dispatchKeySet, const at::Tensor & indices, const at::Tensor & values, at::TensorOptions options={}) {
-        return at::_ops::sparse_coo_tensor_indices::redispatch(dispatchKeySet, indices, values, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
+    // aten::sparse_coo_tensor.indices(Tensor indices, Tensor values, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None, bool? is_coalesced=None) -> Tensor
+    inline at::Tensor sparse_coo_tensor(c10::DispatchKeySet dispatchKeySet, const at::Tensor & indices, const at::Tensor & values, at::TensorOptions options={}, c10::optional<bool> is_coalesced=c10::nullopt) {
+        return at::_ops::sparse_coo_tensor_indices::redispatch(dispatchKeySet, indices, values, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt(), is_coalesced);
     }
     
-    // aten::sparse_coo_tensor.indices(Tensor indices, Tensor values, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
-    inline at::Tensor sparse_coo_tensor(c10::DispatchKeySet dispatchKeySet, const at::Tensor & indices, const at::Tensor & values, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
-        return at::_ops::sparse_coo_tensor_indices::redispatch(dispatchKeySet, indices, values, dtype, layout, device, pin_memory);
+    // aten::sparse_coo_tensor.indices(Tensor indices, Tensor values, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None, bool? is_coalesced=None) -> Tensor
+    inline at::Tensor sparse_coo_tensor(c10::DispatchKeySet dispatchKeySet, const at::Tensor & indices, const at::Tensor & values, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory, c10::optional<bool> is_coalesced) {
+        return at::_ops::sparse_coo_tensor_indices::redispatch(dispatchKeySet, indices, values, dtype, layout, device, pin_memory, is_coalesced);
     }
     
-    // aten::sparse_coo_tensor.indices_size(Tensor indices, Tensor values, int[] size, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
-    inline at::Tensor sparse_coo_tensor(c10::DispatchKeySet dispatchKeySet, const at::Tensor & indices, const at::Tensor & values, at::IntArrayRef size, at::TensorOptions options={}) {
-        return at::_ops::sparse_coo_tensor_indices_size::redispatch(dispatchKeySet, indices, values, size, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
+    // aten::sparse_coo_tensor.indices_size(Tensor indices, Tensor values, int[] size, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None, bool? is_coalesced=None) -> Tensor
+    inline at::Tensor sparse_coo_tensor(c10::DispatchKeySet dispatchKeySet, const at::Tensor & indices, const at::Tensor & values, at::IntArrayRef size, at::TensorOptions options={}, c10::optional<bool> is_coalesced=c10::nullopt) {
+        return at::_ops::sparse_coo_tensor_indices_size::redispatch(dispatchKeySet, indices, values, size, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt(), is_coalesced);
     }
     
-    // aten::sparse_coo_tensor.indices_size(Tensor indices, Tensor values, int[] size, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
-    inline at::Tensor sparse_coo_tensor(c10::DispatchKeySet dispatchKeySet, const at::Tensor & indices, const at::Tensor & values, at::IntArrayRef size, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
-        return at::_ops::sparse_coo_tensor_indices_size::redispatch(dispatchKeySet, indices, values, size, dtype, layout, device, pin_memory);
+    // aten::sparse_coo_tensor.indices_size(Tensor indices, Tensor values, int[] size, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None, bool? is_coalesced=None) -> Tensor
+    inline at::Tensor sparse_coo_tensor(c10::DispatchKeySet dispatchKeySet, const at::Tensor & indices, const at::Tensor & values, at::IntArrayRef size, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory, c10::optional<bool> is_coalesced) {
+        return at::_ops::sparse_coo_tensor_indices_size::redispatch(dispatchKeySet, indices, values, size, dtype, layout, device, pin_memory, is_coalesced);
     }
     
-    // aten::_sparse_coo_tensor_unsafe(Tensor indices, Tensor values, SymInt[] size, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
-    inline at::Tensor _sparse_coo_tensor_unsafe(c10::DispatchKeySet dispatchKeySet, const at::Tensor & indices, const at::Tensor & values, at::IntArrayRef size, at::TensorOptions options={}) {
-        return at::_ops::_sparse_coo_tensor_unsafe::redispatch(dispatchKeySet, indices, values, c10::fromIntArrayRefSlow(size), optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
+    // aten::_sparse_coo_tensor_unsafe(Tensor indices, Tensor values, SymInt[] size, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None, bool? is_coalesced=None) -> Tensor
+    inline at::Tensor _sparse_coo_tensor_unsafe(c10::DispatchKeySet dispatchKeySet, const at::Tensor & indices, const at::Tensor & values, at::IntArrayRef size, at::TensorOptions options={}, c10::optional<bool> is_coalesced=c10::nullopt) {
+        return at::_ops::_sparse_coo_tensor_unsafe::redispatch(dispatchKeySet, indices, values, c10::fromIntArrayRefSlow(size), optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt(), is_coalesced);
     }
     
-    // aten::_sparse_coo_tensor_unsafe(Tensor indices, Tensor values, SymInt[] size, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
-    inline at::Tensor _sparse_coo_tensor_unsafe(c10::DispatchKeySet dispatchKeySet, const at::Tensor & indices, const at::Tensor & values, at::IntArrayRef size, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
-        return at::_ops::_sparse_coo_tensor_unsafe::redispatch(dispatchKeySet, indices, values, c10::fromIntArrayRefSlow(size), dtype, layout, device, pin_memory);
+    // aten::_sparse_coo_tensor_unsafe(Tensor indices, Tensor values, SymInt[] size, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None, bool? is_coalesced=None) -> Tensor
+    inline at::Tensor _sparse_coo_tensor_unsafe(c10::DispatchKeySet dispatchKeySet, const at::Tensor & indices, const at::Tensor & values, at::IntArrayRef size, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory, c10::optional<bool> is_coalesced) {
+        return at::_ops::_sparse_coo_tensor_unsafe::redispatch(dispatchKeySet, indices, values, c10::fromIntArrayRefSlow(size), dtype, layout, device, pin_memory, is_coalesced);
     }
     
-    // aten::_sparse_coo_tensor_unsafe(Tensor indices, Tensor values, SymInt[] size, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
-    inline at::Tensor _sparse_coo_tensor_unsafe_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & indices, const at::Tensor & values, c10::SymIntArrayRef size, at::TensorOptions options={}) {
-        return at::_ops::_sparse_coo_tensor_unsafe::redispatch(dispatchKeySet, indices, values, size, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
+    // aten::_sparse_coo_tensor_unsafe(Tensor indices, Tensor values, SymInt[] size, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None, bool? is_coalesced=None) -> Tensor
+    inline at::Tensor _sparse_coo_tensor_unsafe_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & indices, const at::Tensor & values, c10::SymIntArrayRef size, at::TensorOptions options={}, c10::optional<bool> is_coalesced=c10::nullopt) {
+        return at::_ops::_sparse_coo_tensor_unsafe::redispatch(dispatchKeySet, indices, values, size, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt(), is_coalesced);
     }
     
-    // aten::_sparse_coo_tensor_unsafe(Tensor indices, Tensor values, SymInt[] size, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
-    inline at::Tensor _sparse_coo_tensor_unsafe_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & indices, const at::Tensor & values, c10::SymIntArrayRef size, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
-        return at::_ops::_sparse_coo_tensor_unsafe::redispatch(dispatchKeySet, indices, values, size, dtype, layout, device, pin_memory);
+    // aten::_sparse_coo_tensor_unsafe(Tensor indices, Tensor values, SymInt[] size, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None, bool? is_coalesced=None) -> Tensor
+    inline at::Tensor _sparse_coo_tensor_unsafe_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & indices, const at::Tensor & values, c10::SymIntArrayRef size, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory, c10::optional<bool> is_coalesced) {
+        return at::_ops::_sparse_coo_tensor_unsafe::redispatch(dispatchKeySet, indices, values, size, dtype, layout, device, pin_memory, is_coalesced);
     }
     
-    // aten::_validate_sparse_coo_tensor_args(Tensor indices, Tensor values, int[] size) -> ()
-    inline void _validate_sparse_coo_tensor_args(c10::DispatchKeySet dispatchKeySet, const at::Tensor & indices, const at::Tensor & values, at::IntArrayRef size) {
-        return at::_ops::_validate_sparse_coo_tensor_args::redispatch(dispatchKeySet, indices, values, size);
+    // aten::_validate_sparse_coo_tensor_args(Tensor indices, Tensor values, int[] size, bool? is_coalesced=None) -> ()
+    inline void _validate_sparse_coo_tensor_args(c10::DispatchKeySet dispatchKeySet, const at::Tensor & indices, const at::Tensor & values, at::IntArrayRef size, c10::optional<bool> is_coalesced=c10::nullopt) {
+        return at::_ops::_validate_sparse_coo_tensor_args::redispatch(dispatchKeySet, indices, values, size, is_coalesced);
     }
     
     // aten::_validate_sparse_compressed_tensor_args(Tensor compressed_indices, Tensor plain_indices, Tensor values, int[] size, Layout layout) -> ()
@@ -8427,24 +8447,24 @@ namespace redispatch {
         return at::_ops::_sparse_coo_tensor_with_dims::redispatch(dispatchKeySet, sparse_dim, dense_dim, size, dtype, layout, device, pin_memory);
     }
     
-    // aten::_sparse_coo_tensor_with_dims_and_tensors(int sparse_dim, int dense_dim, SymInt[] size, Tensor indices, Tensor values, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=False) -> Tensor
-    inline at::Tensor _sparse_coo_tensor_with_dims_and_tensors(c10::DispatchKeySet dispatchKeySet, int64_t sparse_dim, int64_t dense_dim, at::IntArrayRef size, const at::Tensor & indices, const at::Tensor & values, at::TensorOptions options) {
-        return at::_ops::_sparse_coo_tensor_with_dims_and_tensors::redispatch(dispatchKeySet, sparse_dim, dense_dim, c10::fromIntArrayRefSlow(size), indices, values, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
+    // aten::_sparse_coo_tensor_with_dims_and_tensors(int sparse_dim, int dense_dim, SymInt[] size, Tensor indices, Tensor values, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=False, bool? is_coalesced=None) -> Tensor
+    inline at::Tensor _sparse_coo_tensor_with_dims_and_tensors(c10::DispatchKeySet dispatchKeySet, int64_t sparse_dim, int64_t dense_dim, at::IntArrayRef size, const at::Tensor & indices, const at::Tensor & values, at::TensorOptions options, c10::optional<bool> is_coalesced=c10::nullopt) {
+        return at::_ops::_sparse_coo_tensor_with_dims_and_tensors::redispatch(dispatchKeySet, sparse_dim, dense_dim, c10::fromIntArrayRefSlow(size), indices, values, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt(), is_coalesced);
     }
     
-    // aten::_sparse_coo_tensor_with_dims_and_tensors(int sparse_dim, int dense_dim, SymInt[] size, Tensor indices, Tensor values, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=False) -> Tensor
-    inline at::Tensor _sparse_coo_tensor_with_dims_and_tensors(c10::DispatchKeySet dispatchKeySet, int64_t sparse_dim, int64_t dense_dim, at::IntArrayRef size, const at::Tensor & indices, const at::Tensor & values, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
-        return at::_ops::_sparse_coo_tensor_with_dims_and_tensors::redispatch(dispatchKeySet, sparse_dim, dense_dim, c10::fromIntArrayRefSlow(size), indices, values, dtype, layout, device, pin_memory);
+    // aten::_sparse_coo_tensor_with_dims_and_tensors(int sparse_dim, int dense_dim, SymInt[] size, Tensor indices, Tensor values, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=False, bool? is_coalesced=None) -> Tensor
+    inline at::Tensor _sparse_coo_tensor_with_dims_and_tensors(c10::DispatchKeySet dispatchKeySet, int64_t sparse_dim, int64_t dense_dim, at::IntArrayRef size, const at::Tensor & indices, const at::Tensor & values, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory, c10::optional<bool> is_coalesced) {
+        return at::_ops::_sparse_coo_tensor_with_dims_and_tensors::redispatch(dispatchKeySet, sparse_dim, dense_dim, c10::fromIntArrayRefSlow(size), indices, values, dtype, layout, device, pin_memory, is_coalesced);
     }
     
-    // aten::_sparse_coo_tensor_with_dims_and_tensors(int sparse_dim, int dense_dim, SymInt[] size, Tensor indices, Tensor values, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=False) -> Tensor
-    inline at::Tensor _sparse_coo_tensor_with_dims_and_tensors_symint(c10::DispatchKeySet dispatchKeySet, int64_t sparse_dim, int64_t dense_dim, c10::SymIntArrayRef size, const at::Tensor & indices, const at::Tensor & values, at::TensorOptions options) {
-        return at::_ops::_sparse_coo_tensor_with_dims_and_tensors::redispatch(dispatchKeySet, sparse_dim, dense_dim, size, indices, values, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
+    // aten::_sparse_coo_tensor_with_dims_and_tensors(int sparse_dim, int dense_dim, SymInt[] size, Tensor indices, Tensor values, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=False, bool? is_coalesced=None) -> Tensor
+    inline at::Tensor _sparse_coo_tensor_with_dims_and_tensors_symint(c10::DispatchKeySet dispatchKeySet, int64_t sparse_dim, int64_t dense_dim, c10::SymIntArrayRef size, const at::Tensor & indices, const at::Tensor & values, at::TensorOptions options, c10::optional<bool> is_coalesced=c10::nullopt) {
+        return at::_ops::_sparse_coo_tensor_with_dims_and_tensors::redispatch(dispatchKeySet, sparse_dim, dense_dim, size, indices, values, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt(), is_coalesced);
     }
     
-    // aten::_sparse_coo_tensor_with_dims_and_tensors(int sparse_dim, int dense_dim, SymInt[] size, Tensor indices, Tensor values, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=False) -> Tensor
-    inline at::Tensor _sparse_coo_tensor_with_dims_and_tensors_symint(c10::DispatchKeySet dispatchKeySet, int64_t sparse_dim, int64_t dense_dim, c10::SymIntArrayRef size, const at::Tensor & indices, const at::Tensor & values, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
-        return at::_ops::_sparse_coo_tensor_with_dims_and_tensors::redispatch(dispatchKeySet, sparse_dim, dense_dim, size, indices, values, dtype, layout, device, pin_memory);
+    // aten::_sparse_coo_tensor_with_dims_and_tensors(int sparse_dim, int dense_dim, SymInt[] size, Tensor indices, Tensor values, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=False, bool? is_coalesced=None) -> Tensor
+    inline at::Tensor _sparse_coo_tensor_with_dims_and_tensors_symint(c10::DispatchKeySet dispatchKeySet, int64_t sparse_dim, int64_t dense_dim, c10::SymIntArrayRef size, const at::Tensor & indices, const at::Tensor & values, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory, c10::optional<bool> is_coalesced) {
+        return at::_ops::_sparse_coo_tensor_with_dims_and_tensors::redispatch(dispatchKeySet, sparse_dim, dense_dim, size, indices, values, dtype, layout, device, pin_memory, is_coalesced);
     }
     
     // aten::sparse_resize_(Tensor(a!) self, int[] size, int sparse_dim, int dense_dim) -> Tensor(a!)
@@ -12545,6 +12565,11 @@ namespace redispatch {
     // aten::_foreach_zero_(Tensor(a!)[] self) -> ()
     inline void _foreach_zero_(c10::DispatchKeySet dispatchKeySet, at::TensorList self) {
         return at::_ops::_foreach_zero_::redispatch(dispatchKeySet, self);
+    }
+    
+    // aten::_foreach_copy_(Tensor(a!)[] self, Tensor[] src, bool non_blocking=False) -> ()
+    inline void _foreach_copy_(c10::DispatchKeySet dispatchKeySet, at::TensorList self, at::TensorList src, bool non_blocking=false) {
+        return at::_ops::_foreach_copy_::redispatch(dispatchKeySet, self, src, non_blocking);
     }
     
     // aten::bucketize.Tensor(Tensor self, Tensor boundaries, *, bool out_int32=False, bool right=False) -> Tensor
@@ -18572,9 +18597,19 @@ namespace redispatch {
         return at::_ops::_fused_adam_::redispatch(dispatchKeySet, self, grads, exp_avgs, exp_avg_sqs, max_exp_avg_sqs, state_steps, lr, beta1, beta2, weight_decay, eps, amsgrad, maximize, grad_scale, found_inf);
     }
     
+    // aten::_fused_adam_.tensor_lr(Tensor(a!)[] self, Tensor(b!)[] grads, Tensor(c!)[] exp_avgs, Tensor(d!)[] exp_avg_sqs, Tensor(e!)[] max_exp_avg_sqs, Tensor[] state_steps, *, Tensor lr, float beta1, float beta2, float weight_decay, float eps, bool amsgrad, bool maximize, Tensor? grad_scale=None, Tensor? found_inf=None) -> ()
+    inline void _fused_adam_(c10::DispatchKeySet dispatchKeySet, at::TensorList self, at::TensorList grads, at::TensorList exp_avgs, at::TensorList exp_avg_sqs, at::TensorList max_exp_avg_sqs, at::TensorList state_steps, const at::Tensor & lr, double beta1, double beta2, double weight_decay, double eps, bool amsgrad, bool maximize, const c10::optional<at::Tensor> & grad_scale={}, const c10::optional<at::Tensor> & found_inf={}) {
+        return at::_ops::_fused_adam__tensor_lr::redispatch(dispatchKeySet, self, grads, exp_avgs, exp_avg_sqs, max_exp_avg_sqs, state_steps, lr, beta1, beta2, weight_decay, eps, amsgrad, maximize, grad_scale, found_inf);
+    }
+    
     // aten::_fused_adamw_(Tensor(a!)[] self, Tensor(b!)[] grads, Tensor(c!)[] exp_avgs, Tensor(d!)[] exp_avg_sqs, Tensor(e!)[] max_exp_avg_sqs, Tensor[] state_steps, *, float lr, float beta1, float beta2, float weight_decay, float eps, bool amsgrad, bool maximize, Tensor? grad_scale=None, Tensor? found_inf=None) -> ()
     inline void _fused_adamw_(c10::DispatchKeySet dispatchKeySet, at::TensorList self, at::TensorList grads, at::TensorList exp_avgs, at::TensorList exp_avg_sqs, at::TensorList max_exp_avg_sqs, at::TensorList state_steps, double lr, double beta1, double beta2, double weight_decay, double eps, bool amsgrad, bool maximize, const c10::optional<at::Tensor> & grad_scale={}, const c10::optional<at::Tensor> & found_inf={}) {
         return at::_ops::_fused_adamw_::redispatch(dispatchKeySet, self, grads, exp_avgs, exp_avg_sqs, max_exp_avg_sqs, state_steps, lr, beta1, beta2, weight_decay, eps, amsgrad, maximize, grad_scale, found_inf);
+    }
+    
+    // aten::_fused_adamw_.tensor_lr(Tensor(a!)[] self, Tensor(b!)[] grads, Tensor(c!)[] exp_avgs, Tensor(d!)[] exp_avg_sqs, Tensor(e!)[] max_exp_avg_sqs, Tensor[] state_steps, *, Tensor lr, float beta1, float beta2, float weight_decay, float eps, bool amsgrad, bool maximize, Tensor? grad_scale=None, Tensor? found_inf=None) -> ()
+    inline void _fused_adamw_(c10::DispatchKeySet dispatchKeySet, at::TensorList self, at::TensorList grads, at::TensorList exp_avgs, at::TensorList exp_avg_sqs, at::TensorList max_exp_avg_sqs, at::TensorList state_steps, const at::Tensor & lr, double beta1, double beta2, double weight_decay, double eps, bool amsgrad, bool maximize, const c10::optional<at::Tensor> & grad_scale={}, const c10::optional<at::Tensor> & found_inf={}) {
+        return at::_ops::_fused_adamw__tensor_lr::redispatch(dispatchKeySet, self, grads, exp_avgs, exp_avg_sqs, max_exp_avg_sqs, state_steps, lr, beta1, beta2, weight_decay, eps, amsgrad, maximize, grad_scale, found_inf);
     }
     
     // aten::_propagate_xla_data(Tensor input, Tensor output) -> ()
@@ -21467,24 +21502,24 @@ namespace redispatch {
         return at::_ops::_sparse_coo_tensor_with_dims_out::redispatch(dispatchKeySet, sparse_dim, dense_dim, size, out);
     }
     
-    // aten::_sparse_coo_tensor_with_dims_and_tensors.out(int sparse_dim, int dense_dim, SymInt[] size, Tensor indices, Tensor values, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & _sparse_coo_tensor_with_dims_and_tensors_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, int64_t sparse_dim, int64_t dense_dim, at::IntArrayRef size, const at::Tensor & indices, const at::Tensor & values) {
-        return at::_ops::_sparse_coo_tensor_with_dims_and_tensors_out::redispatch(dispatchKeySet, sparse_dim, dense_dim, c10::fromIntArrayRefSlow(size), indices, values, out);
+    // aten::_sparse_coo_tensor_with_dims_and_tensors.out(int sparse_dim, int dense_dim, SymInt[] size, Tensor indices, Tensor values, *, bool? is_coalesced=None, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & _sparse_coo_tensor_with_dims_and_tensors_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, int64_t sparse_dim, int64_t dense_dim, at::IntArrayRef size, const at::Tensor & indices, const at::Tensor & values, c10::optional<bool> is_coalesced=c10::nullopt) {
+        return at::_ops::_sparse_coo_tensor_with_dims_and_tensors_out::redispatch(dispatchKeySet, sparse_dim, dense_dim, c10::fromIntArrayRefSlow(size), indices, values, is_coalesced, out);
     }
     
-    // aten::_sparse_coo_tensor_with_dims_and_tensors.out(int sparse_dim, int dense_dim, SymInt[] size, Tensor indices, Tensor values, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & _sparse_coo_tensor_with_dims_and_tensors_outf(c10::DispatchKeySet dispatchKeySet, int64_t sparse_dim, int64_t dense_dim, at::IntArrayRef size, const at::Tensor & indices, const at::Tensor & values, at::Tensor & out) {
-        return at::_ops::_sparse_coo_tensor_with_dims_and_tensors_out::redispatch(dispatchKeySet, sparse_dim, dense_dim, c10::fromIntArrayRefSlow(size), indices, values, out);
+    // aten::_sparse_coo_tensor_with_dims_and_tensors.out(int sparse_dim, int dense_dim, SymInt[] size, Tensor indices, Tensor values, *, bool? is_coalesced=None, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & _sparse_coo_tensor_with_dims_and_tensors_outf(c10::DispatchKeySet dispatchKeySet, int64_t sparse_dim, int64_t dense_dim, at::IntArrayRef size, const at::Tensor & indices, const at::Tensor & values, c10::optional<bool> is_coalesced, at::Tensor & out) {
+        return at::_ops::_sparse_coo_tensor_with_dims_and_tensors_out::redispatch(dispatchKeySet, sparse_dim, dense_dim, c10::fromIntArrayRefSlow(size), indices, values, is_coalesced, out);
     }
     
-    // aten::_sparse_coo_tensor_with_dims_and_tensors.out(int sparse_dim, int dense_dim, SymInt[] size, Tensor indices, Tensor values, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & _sparse_coo_tensor_with_dims_and_tensors_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, int64_t sparse_dim, int64_t dense_dim, c10::SymIntArrayRef size, const at::Tensor & indices, const at::Tensor & values) {
-        return at::_ops::_sparse_coo_tensor_with_dims_and_tensors_out::redispatch(dispatchKeySet, sparse_dim, dense_dim, size, indices, values, out);
+    // aten::_sparse_coo_tensor_with_dims_and_tensors.out(int sparse_dim, int dense_dim, SymInt[] size, Tensor indices, Tensor values, *, bool? is_coalesced=None, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & _sparse_coo_tensor_with_dims_and_tensors_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, int64_t sparse_dim, int64_t dense_dim, c10::SymIntArrayRef size, const at::Tensor & indices, const at::Tensor & values, c10::optional<bool> is_coalesced=c10::nullopt) {
+        return at::_ops::_sparse_coo_tensor_with_dims_and_tensors_out::redispatch(dispatchKeySet, sparse_dim, dense_dim, size, indices, values, is_coalesced, out);
     }
     
-    // aten::_sparse_coo_tensor_with_dims_and_tensors.out(int sparse_dim, int dense_dim, SymInt[] size, Tensor indices, Tensor values, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & _sparse_coo_tensor_with_dims_and_tensors_symint_outf(c10::DispatchKeySet dispatchKeySet, int64_t sparse_dim, int64_t dense_dim, c10::SymIntArrayRef size, const at::Tensor & indices, const at::Tensor & values, at::Tensor & out) {
-        return at::_ops::_sparse_coo_tensor_with_dims_and_tensors_out::redispatch(dispatchKeySet, sparse_dim, dense_dim, size, indices, values, out);
+    // aten::_sparse_coo_tensor_with_dims_and_tensors.out(int sparse_dim, int dense_dim, SymInt[] size, Tensor indices, Tensor values, *, bool? is_coalesced=None, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & _sparse_coo_tensor_with_dims_and_tensors_symint_outf(c10::DispatchKeySet dispatchKeySet, int64_t sparse_dim, int64_t dense_dim, c10::SymIntArrayRef size, const at::Tensor & indices, const at::Tensor & values, c10::optional<bool> is_coalesced, at::Tensor & out) {
+        return at::_ops::_sparse_coo_tensor_with_dims_and_tensors_out::redispatch(dispatchKeySet, sparse_dim, dense_dim, size, indices, values, is_coalesced, out);
     }
     
     // aten::sparse_resize.out(Tensor self, int[] size, int sparse_dim, int dense_dim, *, Tensor(a!) out) -> Tensor(a!)
@@ -23162,6 +23197,21 @@ namespace redispatch {
         return at::_ops::_foreach_zero::redispatch(dispatchKeySet, self);
     }
     
+    // aten::_foreach_copy.out(Tensor[] self, Tensor[] src, bool non_blocking=False, *, Tensor(a!)[] out) -> ()
+    inline void _foreach_copy_out(c10::DispatchKeySet dispatchKeySet, at::TensorList out, at::TensorList self, at::TensorList src, bool non_blocking=false) {
+        return at::_ops::_foreach_copy_out::redispatch(dispatchKeySet, self, src, non_blocking, out);
+    }
+    
+    // aten::_foreach_copy.out(Tensor[] self, Tensor[] src, bool non_blocking=False, *, Tensor(a!)[] out) -> ()
+    inline void _foreach_copy_outf(c10::DispatchKeySet dispatchKeySet, at::TensorList self, at::TensorList src, bool non_blocking, at::TensorList out) {
+        return at::_ops::_foreach_copy_out::redispatch(dispatchKeySet, self, src, non_blocking, out);
+    }
+    
+    // aten::_foreach_copy(Tensor[] self, Tensor[] src, bool non_blocking=False) -> Tensor[] self_out
+    inline ::std::vector<at::Tensor> _foreach_copy(c10::DispatchKeySet dispatchKeySet, at::TensorList self, at::TensorList src, bool non_blocking=false) {
+        return at::_ops::_foreach_copy::redispatch(dispatchKeySet, self, src, non_blocking);
+    }
+    
     // aten::bucketize.Scalar_out(Scalar self, Tensor boundaries, *, bool out_int32=False, bool right=False, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & bucketize_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Scalar & self, const at::Tensor & boundaries, bool out_int32=false, bool right=false) {
         return at::_ops::bucketize_Scalar_out::redispatch(dispatchKeySet, self, boundaries, out_int32, right, out);
@@ -23937,6 +23987,21 @@ namespace redispatch {
         return at::_ops::_fused_adam::redispatch(dispatchKeySet, self, grads, exp_avgs, exp_avg_sqs, max_exp_avg_sqs, state_steps, lr, beta1, beta2, weight_decay, eps, amsgrad, maximize, grad_scale, found_inf);
     }
     
+    // aten::_fused_adam.tensor_lr_out(Tensor[] self, Tensor(b!)[] grads, Tensor(c!)[] exp_avgs, Tensor(d!)[] exp_avg_sqs, Tensor(e!)[] max_exp_avg_sqs, Tensor[] state_steps, *, Tensor lr, float beta1, float beta2, float weight_decay, float eps, bool amsgrad, bool maximize, Tensor? grad_scale=None, Tensor? found_inf=None, Tensor(a!)[] out) -> ()
+    inline void _fused_adam_out(c10::DispatchKeySet dispatchKeySet, at::TensorList out, at::TensorList self, at::TensorList grads, at::TensorList exp_avgs, at::TensorList exp_avg_sqs, at::TensorList max_exp_avg_sqs, at::TensorList state_steps, const at::Tensor & lr, double beta1, double beta2, double weight_decay, double eps, bool amsgrad, bool maximize, const c10::optional<at::Tensor> & grad_scale={}, const c10::optional<at::Tensor> & found_inf={}) {
+        return at::_ops::_fused_adam_tensor_lr_out::redispatch(dispatchKeySet, self, grads, exp_avgs, exp_avg_sqs, max_exp_avg_sqs, state_steps, lr, beta1, beta2, weight_decay, eps, amsgrad, maximize, grad_scale, found_inf, out);
+    }
+    
+    // aten::_fused_adam.tensor_lr_out(Tensor[] self, Tensor(b!)[] grads, Tensor(c!)[] exp_avgs, Tensor(d!)[] exp_avg_sqs, Tensor(e!)[] max_exp_avg_sqs, Tensor[] state_steps, *, Tensor lr, float beta1, float beta2, float weight_decay, float eps, bool amsgrad, bool maximize, Tensor? grad_scale=None, Tensor? found_inf=None, Tensor(a!)[] out) -> ()
+    inline void _fused_adam_outf(c10::DispatchKeySet dispatchKeySet, at::TensorList self, at::TensorList grads, at::TensorList exp_avgs, at::TensorList exp_avg_sqs, at::TensorList max_exp_avg_sqs, at::TensorList state_steps, const at::Tensor & lr, double beta1, double beta2, double weight_decay, double eps, bool amsgrad, bool maximize, const c10::optional<at::Tensor> & grad_scale, const c10::optional<at::Tensor> & found_inf, at::TensorList out) {
+        return at::_ops::_fused_adam_tensor_lr_out::redispatch(dispatchKeySet, self, grads, exp_avgs, exp_avg_sqs, max_exp_avg_sqs, state_steps, lr, beta1, beta2, weight_decay, eps, amsgrad, maximize, grad_scale, found_inf, out);
+    }
+    
+    // aten::_fused_adam.tensor_lr(Tensor[] self, Tensor[] grads, Tensor[] exp_avgs, Tensor[] exp_avg_sqs, Tensor[] max_exp_avg_sqs, Tensor[] state_steps, *, Tensor lr, float beta1, float beta2, float weight_decay, float eps, bool amsgrad, bool maximize, Tensor? grad_scale=None, Tensor? found_inf=None) -> (Tensor[] self_out, Tensor[] grads_out, Tensor[] exp_avgs_out, Tensor[] exp_avg_sqs_out, Tensor[] max_exp_avg_sqs_out)
+    inline ::std::tuple<::std::vector<at::Tensor>,::std::vector<at::Tensor>,::std::vector<at::Tensor>,::std::vector<at::Tensor>,::std::vector<at::Tensor>> _fused_adam(c10::DispatchKeySet dispatchKeySet, at::TensorList self, at::TensorList grads, at::TensorList exp_avgs, at::TensorList exp_avg_sqs, at::TensorList max_exp_avg_sqs, at::TensorList state_steps, const at::Tensor & lr, double beta1, double beta2, double weight_decay, double eps, bool amsgrad, bool maximize, const c10::optional<at::Tensor> & grad_scale={}, const c10::optional<at::Tensor> & found_inf={}) {
+        return at::_ops::_fused_adam_tensor_lr::redispatch(dispatchKeySet, self, grads, exp_avgs, exp_avg_sqs, max_exp_avg_sqs, state_steps, lr, beta1, beta2, weight_decay, eps, amsgrad, maximize, grad_scale, found_inf);
+    }
+    
     // aten::_fused_adamw.out(Tensor[] self, Tensor(b!)[] grads, Tensor(c!)[] exp_avgs, Tensor(d!)[] exp_avg_sqs, Tensor(e!)[] max_exp_avg_sqs, Tensor[] state_steps, *, float lr, float beta1, float beta2, float weight_decay, float eps, bool amsgrad, bool maximize, Tensor? grad_scale=None, Tensor? found_inf=None, Tensor(a!)[] out) -> ()
     inline void _fused_adamw_out(c10::DispatchKeySet dispatchKeySet, at::TensorList out, at::TensorList self, at::TensorList grads, at::TensorList exp_avgs, at::TensorList exp_avg_sqs, at::TensorList max_exp_avg_sqs, at::TensorList state_steps, double lr, double beta1, double beta2, double weight_decay, double eps, bool amsgrad, bool maximize, const c10::optional<at::Tensor> & grad_scale={}, const c10::optional<at::Tensor> & found_inf={}) {
         return at::_ops::_fused_adamw_out::redispatch(dispatchKeySet, self, grads, exp_avgs, exp_avg_sqs, max_exp_avg_sqs, state_steps, lr, beta1, beta2, weight_decay, eps, amsgrad, maximize, grad_scale, found_inf, out);
@@ -23950,6 +24015,21 @@ namespace redispatch {
     // aten::_fused_adamw(Tensor[] self, Tensor[] grads, Tensor[] exp_avgs, Tensor[] exp_avg_sqs, Tensor[] max_exp_avg_sqs, Tensor[] state_steps, *, float lr, float beta1, float beta2, float weight_decay, float eps, bool amsgrad, bool maximize, Tensor? grad_scale=None, Tensor? found_inf=None) -> (Tensor[] self_out, Tensor[] grads_out, Tensor[] exp_avgs_out, Tensor[] exp_avg_sqs_out, Tensor[] max_exp_avg_sqs_out)
     inline ::std::tuple<::std::vector<at::Tensor>,::std::vector<at::Tensor>,::std::vector<at::Tensor>,::std::vector<at::Tensor>,::std::vector<at::Tensor>> _fused_adamw(c10::DispatchKeySet dispatchKeySet, at::TensorList self, at::TensorList grads, at::TensorList exp_avgs, at::TensorList exp_avg_sqs, at::TensorList max_exp_avg_sqs, at::TensorList state_steps, double lr, double beta1, double beta2, double weight_decay, double eps, bool amsgrad, bool maximize, const c10::optional<at::Tensor> & grad_scale={}, const c10::optional<at::Tensor> & found_inf={}) {
         return at::_ops::_fused_adamw::redispatch(dispatchKeySet, self, grads, exp_avgs, exp_avg_sqs, max_exp_avg_sqs, state_steps, lr, beta1, beta2, weight_decay, eps, amsgrad, maximize, grad_scale, found_inf);
+    }
+    
+    // aten::_fused_adamw.tensor_lr_out(Tensor[] self, Tensor(b!)[] grads, Tensor(c!)[] exp_avgs, Tensor(d!)[] exp_avg_sqs, Tensor(e!)[] max_exp_avg_sqs, Tensor[] state_steps, *, Tensor lr, float beta1, float beta2, float weight_decay, float eps, bool amsgrad, bool maximize, Tensor? grad_scale=None, Tensor? found_inf=None, Tensor(a!)[] out) -> ()
+    inline void _fused_adamw_out(c10::DispatchKeySet dispatchKeySet, at::TensorList out, at::TensorList self, at::TensorList grads, at::TensorList exp_avgs, at::TensorList exp_avg_sqs, at::TensorList max_exp_avg_sqs, at::TensorList state_steps, const at::Tensor & lr, double beta1, double beta2, double weight_decay, double eps, bool amsgrad, bool maximize, const c10::optional<at::Tensor> & grad_scale={}, const c10::optional<at::Tensor> & found_inf={}) {
+        return at::_ops::_fused_adamw_tensor_lr_out::redispatch(dispatchKeySet, self, grads, exp_avgs, exp_avg_sqs, max_exp_avg_sqs, state_steps, lr, beta1, beta2, weight_decay, eps, amsgrad, maximize, grad_scale, found_inf, out);
+    }
+    
+    // aten::_fused_adamw.tensor_lr_out(Tensor[] self, Tensor(b!)[] grads, Tensor(c!)[] exp_avgs, Tensor(d!)[] exp_avg_sqs, Tensor(e!)[] max_exp_avg_sqs, Tensor[] state_steps, *, Tensor lr, float beta1, float beta2, float weight_decay, float eps, bool amsgrad, bool maximize, Tensor? grad_scale=None, Tensor? found_inf=None, Tensor(a!)[] out) -> ()
+    inline void _fused_adamw_outf(c10::DispatchKeySet dispatchKeySet, at::TensorList self, at::TensorList grads, at::TensorList exp_avgs, at::TensorList exp_avg_sqs, at::TensorList max_exp_avg_sqs, at::TensorList state_steps, const at::Tensor & lr, double beta1, double beta2, double weight_decay, double eps, bool amsgrad, bool maximize, const c10::optional<at::Tensor> & grad_scale, const c10::optional<at::Tensor> & found_inf, at::TensorList out) {
+        return at::_ops::_fused_adamw_tensor_lr_out::redispatch(dispatchKeySet, self, grads, exp_avgs, exp_avg_sqs, max_exp_avg_sqs, state_steps, lr, beta1, beta2, weight_decay, eps, amsgrad, maximize, grad_scale, found_inf, out);
+    }
+    
+    // aten::_fused_adamw.tensor_lr(Tensor[] self, Tensor[] grads, Tensor[] exp_avgs, Tensor[] exp_avg_sqs, Tensor[] max_exp_avg_sqs, Tensor[] state_steps, *, Tensor lr, float beta1, float beta2, float weight_decay, float eps, bool amsgrad, bool maximize, Tensor? grad_scale=None, Tensor? found_inf=None) -> (Tensor[] self_out, Tensor[] grads_out, Tensor[] exp_avgs_out, Tensor[] exp_avg_sqs_out, Tensor[] max_exp_avg_sqs_out)
+    inline ::std::tuple<::std::vector<at::Tensor>,::std::vector<at::Tensor>,::std::vector<at::Tensor>,::std::vector<at::Tensor>,::std::vector<at::Tensor>> _fused_adamw(c10::DispatchKeySet dispatchKeySet, at::TensorList self, at::TensorList grads, at::TensorList exp_avgs, at::TensorList exp_avg_sqs, at::TensorList max_exp_avg_sqs, at::TensorList state_steps, const at::Tensor & lr, double beta1, double beta2, double weight_decay, double eps, bool amsgrad, bool maximize, const c10::optional<at::Tensor> & grad_scale={}, const c10::optional<at::Tensor> & found_inf={}) {
+        return at::_ops::_fused_adamw_tensor_lr::redispatch(dispatchKeySet, self, grads, exp_avgs, exp_avg_sqs, max_exp_avg_sqs, state_steps, lr, beta1, beta2, weight_decay, eps, amsgrad, maximize, grad_scale, found_inf);
     }
 } // namespace redispatch
 
