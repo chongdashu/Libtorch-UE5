@@ -3,7 +3,6 @@
 #pragma once
 #include "Models/Llama/LlamaUnreal.h"
 #include "Models/Llama/llama_utils.h"
-#include "Models/Llama/simple_net.h"	
 
 #include "IAtumModule.h"
 #include "Macros/AtumMacrosLog.h"
@@ -106,14 +105,9 @@ bool ULlamaUnreal::Generate_Implementation(const TScriptInterface<IAtumTensor>& 
 
 bool ULlamaUnreal::LoadParams_Implementation(const FString& Path)
 {
-	// auto implPtr = std::dynamic_pointer_cast<LlamaCausalLMImpl>(Module->ptr());
 
-	std::vector<std::string> PathsVector;
 	
-	// PathsVector.reserve(Paths.Num()); 
-	//
-	// for (const FString& Path : Paths) {
-		// Convert FString to std::string
+
 	FString const FilePath = IAtumModule::GetContentDirectory(Path);
 	if (!FPaths::FileExists(FilePath))
 	{
@@ -128,17 +122,7 @@ bool ULlamaUnreal::LoadParams_Implementation(const FString& Path)
 	
 	torch::load(*Module, StdPath);
 
-	
-		// PathsVector.push_back(StdString);
-	// }
 
-
-
-
-	
-	// const torch::OrderedDict<std::string, at::Tensor>& model_params = BaseModule->parameters_;
-	
-	// implPtr->load_parameters(StdPath, true);
 	UE_LOG(LogTemp, Warning, TEXT("Loaded parameters"));
 	return true;
 }
