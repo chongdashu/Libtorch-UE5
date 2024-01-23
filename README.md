@@ -70,7 +70,7 @@ _Those files can be accessed from the official [PyTorch website](https://pytorch
 
 * OS: Windows - 64 bit
 * UE: version 5.2+
-* GPU: Must support CUDA
+* GPU support is currently CUDA-only
 
 <div id="installation"></div>
 
