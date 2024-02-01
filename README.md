@@ -52,8 +52,6 @@ With ATUM you can:
 * Create custom layers, optimisers and tensors
 * Use every feature in both C++ and Blueprints
 
-Please note that this is a final year project for university, so do not expect this to be updated in the future.
-If you are interested in this project and wish to elevate it further, feel free to fork this repository.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -70,13 +68,13 @@ _Those files can be accessed from the official [PyTorch website](https://pytorch
 
 * OS: Windows - 64 bit
 * UE: version 5.2+
-* GPU: Must support CUDA
+* GPU support is currently CUDA-only
 
 <div id="installation"></div>
 
 ### Installation
 
-1. [Download](https://pytorch.org/get-started/locally/) the release version of LibTorch with CUDA support
+1. [Download](https://pytorch.org/get-started/locally/) the release version of LibTorch
 2. Extract the `include` and `lib` folders
 3. In your UE project, create a folder `Plugins` if it doesn't exist
 4. Inside it create another folder called `Atum` if it doesn't exist
