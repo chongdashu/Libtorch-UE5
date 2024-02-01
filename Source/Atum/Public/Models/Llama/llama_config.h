@@ -16,6 +16,7 @@ struct LlamaConfig {
     int intermediate_size = 11008;
     int num_hidden_layers = 32;
     int num_attention_heads = 32;
+    int num_key_value_heads = 32;
     std::string hidden_act = "silu";
     int max_position_embeddings = 2048;
     double initializer_range = 0.02;

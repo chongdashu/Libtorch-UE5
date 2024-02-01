@@ -2,7 +2,6 @@
 #include "Models/Llama/llama_causal_lm.h"
 #include "Models/Llama/llama_utils.h"
 #include "CoreMinimal.h"
-#include "IAtumModule.h"
 
 
 LlamaCausalLMImpl::LlamaCausalLMImpl(const LlamaConfig& config)

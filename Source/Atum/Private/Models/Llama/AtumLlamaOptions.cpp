@@ -24,6 +24,8 @@ void FAtumLlamaOptions::SetFrom(const LlamaConfig& Options) noexcept
 	PretrainingTp = Options.pretraining_tp;
 	TieWordEmbeddings = Options.tie_word_embeddings;
 	RopeTheta = Options.rope_theta;
+	AttentionBias = Options.attention_bias;
+	ScalarType = AtumEnums::Cast(Options.dtype);
 }
 
 #undef LOCTEXT_NAMESPACE

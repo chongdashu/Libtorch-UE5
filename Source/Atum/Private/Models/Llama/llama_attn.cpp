@@ -13,12 +13,13 @@ LlamaAttentionImpl::LlamaAttentionImpl(const LlamaConfig& config)
       hidden_size(config.hidden_size),
       num_heads(config.num_attention_heads),
       head_dim(hidden_size / num_heads),
+      num_key_value_groups(num_heads/config.num_key_value_heads),
       max_position_embeddings(config.max_position_embeddings),
       rope_theta(config.rope_theta),
       is_causal(true),
       q_proj(torch::nn::Linear(torch::nn::LinearOptions(hidden_size, num_heads * head_dim).bias(false))),
-      k_proj(torch::nn::Linear(torch::nn::LinearOptions(hidden_size, config.num_attention_heads * head_dim).bias(false))),
-      v_proj(torch::nn::Linear(torch::nn::LinearOptions(hidden_size, config.num_attention_heads * head_dim).bias(false))),
+      k_proj(torch::nn::Linear(torch::nn::LinearOptions(hidden_size, config.num_key_value_heads * head_dim).bias(false))),
+      v_proj(torch::nn::Linear(torch::nn::LinearOptions(hidden_size, config.num_key_value_heads * head_dim).bias(false))),
       o_proj(torch::nn::Linear(torch::nn::LinearOptions(num_heads * head_dim, hidden_size).bias(false)))
 {
     // Constructor implementation
@@ -63,8 +64,8 @@ LlamaAttentionImpl::forward(
 
     // Split into num_heads
     q = q.view({bsz, seq_len, num_heads, head_dim}).transpose(1, 2);
-    k = k.view({bsz, seq_len, num_heads, head_dim}).transpose(1, 2);
-    v = v.view({bsz, seq_len, num_heads, head_dim}).transpose(1, 2);
+    k = k.view({bsz, seq_len, config.num_key_value_heads, head_dim}).transpose(1, 2);
+    v = v.view({bsz, seq_len, config.num_key_value_heads, head_dim}).transpose(1, 2);
 
     int64_t kv_seq_len = k.size(-2);
 
@@ -92,8 +93,8 @@ LlamaAttentionImpl::forward(
         past_key_value = std::make_tuple(k, v);
     }
 
-    k = repeat_kv(k, 1);
-    v = repeat_kv(v, 1);
+    k = repeat_kv(k, num_key_value_groups);
+    v = repeat_kv(v, num_key_value_groups);
 
     // calculate attention scores
     torch::Tensor attention_scores = torch::matmul(q, k.transpose(2, 3)) / std::sqrt(head_dim);

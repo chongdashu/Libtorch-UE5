@@ -6,7 +6,6 @@
 
 #include "IAtumModule.h"
 #include "Macros/AtumMacrosLog.h"
-#include "Macros/AtumMacrosLayer.h"
 #include "Misc/Paths.h"
 
 #include "Tensors/IAtumTensor.h"
@@ -19,7 +18,7 @@ bool ULlamaUnreal::OnInitializeData_Implementation(const bool bRetry)
 {
 	UE_LOG(LogTemp, Warning, TEXT("ULlamaUnreal::OnInitializeData_Implementation"));
 	auto LlamaOptions = static_cast<LlamaConfig>(Options);
-	LlamaOptions.dtype = torch::kFloat32;
+	// LlamaOptions.dtype = torch::kFloat32;
 	Module = MakeShared<LlamaCausalLM>(std::make_shared<LlamaCausalLMImpl>(
 		LlamaOptions
 	));
@@ -75,6 +74,7 @@ bool ULlamaUnreal::OnForward_Implementation(
 
 bool ULlamaUnreal::Generate_Implementation(const TScriptInterface<IAtumTensor>& Input, TScriptInterface<IAtumTensor>& Output, const int32& NumNewTokens  = 10)
 {
+
 	TArray<int64> InputSizes;
 	Input->GetSizes(InputSizes);
 
@@ -153,4 +153,3 @@ bool ULlamaUnreal::ToArchive_Implementation(const FString& InPath, const FString
 	return true;
 }
 
-// bool ULlamaUnreal::OnForward_Implementation(

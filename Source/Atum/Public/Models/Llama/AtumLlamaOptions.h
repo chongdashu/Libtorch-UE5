@@ -3,6 +3,7 @@
 
 #include "Models/Llama/llama_config.h"
 #include "Layers/AtumLayerBaseOptions.h"
+#include "Tensors/AtumTensorScalarType.h"
 #include "AtumLlamaOptions.generated.h"
 
 #define LOCTEXT_NAMESPACE "AtumLlamaOptions"
@@ -26,6 +27,9 @@ struct ATUM_API FAtumLlamaOptions : public FAtumLayerBaseOptions
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	int NumAttentionHeads = 32;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	int NumKeyValueHeads = 32;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	FString HiddenAct = "silu";
@@ -68,6 +72,9 @@ struct ATUM_API FAtumLlamaOptions : public FAtumLayerBaseOptions
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	bool OutputAttentions = false;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	EAtumTensorScalarType ScalarType = EAtumTensorScalarType::Float;
 
 
 	UE_NODISCARD_CTOR
@@ -82,6 +89,7 @@ struct ATUM_API FAtumLlamaOptions : public FAtumLayerBaseOptions
 		config.intermediate_size = IntermediateSize;
 		config.num_hidden_layers = NumHiddenLayers;
 		config.num_attention_heads = NumAttentionHeads;
+		config.num_key_value_heads = NumKeyValueHeads;
 		config.hidden_act = TCHAR_TO_UTF8(*HiddenAct);
 		config.max_position_embeddings = MaxPositionEmbeddings;
 		config.initializer_range = InitializerRange;
@@ -98,6 +106,7 @@ struct ATUM_API FAtumLlamaOptions : public FAtumLayerBaseOptions
 		config.attention_bias = AttentionBias;
 		config.output_hidden_states = OutputHiddenStates;
 		config.output_attentions = OutputAttentions;
+		config.dtype = AtumEnums::Cast(ScalarType);
 		return config;
 		
 	}
@@ -108,5 +117,6 @@ struct ATUM_API FAtumLlamaOptions : public FAtumLayerBaseOptions
 	
 	
 };
+
 
 #undef LOCTEXT_NAMESPACE
