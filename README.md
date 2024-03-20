@@ -74,7 +74,7 @@ _Those files can be accessed from the official [PyTorch website](https://pytorch
 
 ### Installation
 
-1. Download v2.1.0 ((cpu)[https://download.pytorch.org/libtorch/cpu/libtorch-win-shared-with-deps-2.1.0%2Bcpu.zip]) ((gpu)[https://download.pytorch.org/libtorch/cu118/libtorch-static-with-deps-2.1.0%2Bcu118.zip]) of the libtorch library, or select it from the list of available versions:
+1. Download v2.1.0 ([cpu](https://download.pytorch.org/libtorch/cpu/libtorch-win-shared-with-deps-2.1.0%2Bcpu.zip) | [gpu](https://download.pytorch.org/libtorch/cu118/libtorch-static-with-deps-2.1.0%2Bcu118.zip)) of libtorch with shared dependencies. 
     * [cpu](https://download.pytorch.org/libtorch/cpu/) or 
     * [gpu](https://download.pytorch.org/libtorch/cu118/)
 2. Extract the `include` and `lib` folders
