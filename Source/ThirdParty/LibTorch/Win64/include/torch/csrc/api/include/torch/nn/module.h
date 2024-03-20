@@ -551,13 +551,13 @@ class TORCH_API Module : public std::enable_shared_from_this<Module> {
  private:
   // Friend classes.
 
-    friend class IAtumLayer;
-
   template <typename Derived>
   friend class Cloneable;
 
   template <typename ModuleType, typename... ArgumentTypes>
   friend struct AnyModuleHolder;
+
+  friend class IAtumLayer;;
 
   /// Pretty prints the given `Module` into the `ostream`.
   TORCH_API friend std::ostream& operator<<(

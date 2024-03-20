@@ -22,7 +22,7 @@
     k##name() {}                                                      \
   };                                                                  \
   }                                                                   \
-  const enumtype::k##name k##name;                   \
+  extern const enumtype::k##name k##name;                   \
   }
 
 #define TORCH_ENUM_DEFINE(name)    \
