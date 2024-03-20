@@ -74,9 +74,7 @@ _Those files can be accessed from the official [PyTorch website](https://pytorch
 
 ### Installation
 
-1. Download v2.1.0 ([cpu](https://download.pytorch.org/libtorch/cpu/libtorch-win-shared-with-deps-2.1.0%2Bcpu.zip) | [gpu](https://download.pytorch.org/libtorch/cu118/libtorch-static-with-deps-2.1.0%2Bcu118.zip)) of libtorch with shared dependencies. 
-    * [cpu](https://download.pytorch.org/libtorch/cpu/) or 
-    * [gpu](https://download.pytorch.org/libtorch/cu118/)
+1. Download libtorch v2.1.0 (Release + Shared Dependencies) ([cpu](https://download.pytorch.org/libtorch/cpu/libtorch-win-shared-with-deps-2.1.0%2Bcpu.zip) | [gpu](https://download.pytorch.org/libtorch/cu118/libtorch-static-with-deps-2.1.0%2Bcu118.zip))  
 2. Extract the `include` and `lib` folders
 3. In your UE project, create a folder `Plugins` if it doesn't exist
 4. Inside it create another folder called `Atum` if it doesn't exist
