@@ -37,7 +37,8 @@ public class AtumEditor : ModuleRules
 			"GraphEditor",
 			"Slate",
 			"SlateCore",
-			"UnrealEd"
+			"UnrealEd", 
+			"DesktopWidgets"
 		});
 	}
 }
