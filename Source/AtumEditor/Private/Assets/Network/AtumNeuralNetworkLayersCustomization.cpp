@@ -24,9 +24,14 @@ void FAtumNeuralNetworkLayersCustomization::CustomizeDetails(IDetailLayoutBuilde
     {
         if (UAtumNeuralNetworkLayers* Layers = Cast<UAtumNeuralNetworkLayers>(Object.Get()))
         {
-            // Use the property handle to access LayerObjects property
+            // Get the property handles for LayerTypes and LayerObjects
+            TSharedPtr<IPropertyHandle> LayerTypesPropertyHandle = DetailBuilder.GetProperty(GET_MEMBER_NAME_CHECKED(UAtumNeuralNetworkLayers, LayerTypes), UAtumNeuralNetworkLayers::StaticClass());
             TSharedPtr<IPropertyHandle> LayerObjectsPropertyHandle = DetailBuilder.GetProperty(GET_MEMBER_NAME_CHECKED(UAtumNeuralNetworkLayers, LayerObjects), UAtumNeuralNetworkLayers::StaticClass());
-            
+
+            // Create a category for LayerTypes and display its default property widget
+            IDetailCategoryBuilder& LayerTypesCategory = DetailBuilder.EditCategory("Layer Types", FText::GetEmpty(), ECategoryPriority::Important);
+            LayerTypesCategory.AddProperty(LayerTypesPropertyHandle);
+
             if (LayerObjectsPropertyHandle.IsValid())
             {
                 uint32 NumChildren;
@@ -44,14 +49,11 @@ void FAtumNeuralNetworkLayersCustomization::CustomizeDetails(IDetailLayoutBuilde
                         {
                             // Create a new category for each LlamaUnreal object
                             FString CategoryName = FString::Printf(TEXT("Layer Object %d"), i);
-                            IDetailCategoryBuilder& LayerObjectCategory = DetailBuilder.EditCategory(*CategoryName);
+                            IDetailCategoryBuilder& LayerObjectCategory = DetailBuilder.EditCategory(*CategoryName, FText::GetEmpty(), ECategoryPriority::Important);
 
-                            // Add the default property widget for this LlamaUnreal object
-                            LayerObjectCategory.AddProperty(ChildHandle);
-
-                            // Add a custom row for the 'Load JSON' button
+                            // Add a custom row for the 'Load JSON' button at the top of the category
                             LayerObjectCategory.AddCustomRow(FText::FromString("Load JSON"))
-                                .ValueContent()
+                                .WholeRowContent()
                                 [
                                     SNew(SHorizontalBox)
                                     + SHorizontalBox::Slot()
@@ -67,6 +69,9 @@ void FAtumNeuralNetworkLayersCustomization::CustomizeDetails(IDetailLayoutBuilde
                                         }))
                                     ]
                                 ];
+
+                            // Add the default property widget for this LlamaUnreal object
+                            LayerObjectCategory.AddProperty(ChildHandle);
                         }
                     }
                 }
