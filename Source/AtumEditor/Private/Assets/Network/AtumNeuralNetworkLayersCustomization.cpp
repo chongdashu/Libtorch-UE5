@@ -2,10 +2,16 @@
 
 #include "Assets/Network/AtumNeuralNetworkLayersCustomization.h"
 
+#include "DesktopPlatformModule.h"
 #include "DetailLayoutBuilder.h"
 #include "Models/Llama/LlamaUnreal.h"
 #include "DetailWidgetRow.h"
+#include "IDesktopPlatform.h"
+#include "Dom/JsonObject.h"
 #include "Layers/Network/AtumNeuralNetworkLayers.h"
+#include "Misc/FileHelper.h"
+#include "Serialization/JsonReader.h"
+#include "Serialization/JsonSerializer.h"
 #include "Widgets/Input/SButton.h"
 #include "Widgets/Input/SFilePathPicker.h"
 
@@ -65,6 +71,10 @@ void FAtumNeuralNetworkLayersCustomization::CustomizeDetails(IDetailLayoutBuilde
                                             // Implement the logic to load the JSON file and set the values in the LlamaUnreal object
                                             // You can use the existing SetFromFile function or create a new one specifically for this purpose
                                             // LlamaUnreal->SetFromFile(FilePath);
+                                            if (LlamaUnreal)
+                                            {
+                                                LoadConfigurationFromFile(LlamaUnreal);
+                                            }
                                             return FReply::Handled();
                                         }))
                                     ]
@@ -87,3 +97,46 @@ void FAtumNeuralNetworkLayersCustomization::OnJsonFilePathPicked(const FString& 
     // LlamaUnreal->SetFromFile(FilePath);
 }
 
+void FAtumNeuralNetworkLayersCustomization::LoadConfigurationFromFile(ULlamaUnreal* LlamaUnreal)
+{
+    IDesktopPlatform* DesktopPlatform = FDesktopPlatformModule::Get();
+    if (DesktopPlatform)
+    {
+        TArray<FString> OpenFilenames;
+        DesktopPlatform->OpenFileDialog(
+            nullptr, // Parent window handle
+            TEXT("Load JSON"), // Dialog title
+            TEXT(""), // Default path
+            TEXT(""), // Default file name
+            TEXT("JSON files (*.json)|*.json"), // File types
+            EFileDialogFlags::None,
+            OpenFilenames
+        );
+
+        // if (OpenFilenames.Num() > 0)
+        // {
+        //     const FString& FilePath = OpenFilenames[0];
+        //     FString JsonRaw;
+        //     if (FFileHelper::LoadFileToString(JsonRaw, *FilePath))
+        //     {
+        //         TSharedPtr<FJsonObject> JsonObject;
+        //         TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(JsonRaw);
+        //
+        //         if (FJsonSerializer::Deserialize(Reader, JsonObject) && JsonObject.IsValid())
+        //         {
+        //             // Logic to create a LlamaConfig instance from JsonObject
+        //             // and apply it to the passed LlamaUnreal instance.
+        //             // This is where you parse the JSON and apply settings,
+        //             // similar to the previous example.
+        //             
+        //             // Note: Adjust this part according to your actual JSON structure and LlamaUnreal methods.
+        //             LlamaConfig config;
+        //             // Set config fields from JsonObject...
+        //             FAtumLlamaOptions NewOptions;
+        //             NewOptions.SetFrom(config);
+        //             // LlamaUnreal->ApplyNewOptions(NewOptions); // Ensure this method exists in ULlamaUnreal.
+        //         }
+        //     }
+        // }
+    }
+}

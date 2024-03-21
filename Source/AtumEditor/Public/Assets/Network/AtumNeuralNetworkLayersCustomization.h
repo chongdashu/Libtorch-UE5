@@ -18,6 +18,7 @@ public:
 
 private:
 	void OnJsonFilePathPicked(const FString& FilePath, ULlamaUnreal* LlamaUnreal);
+	void LoadConfigurationFromFile(ULlamaUnreal* LlamaUnreal);
 };
 
 #undef LOCTEXT_NAMESPACE

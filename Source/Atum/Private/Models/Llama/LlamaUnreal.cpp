@@ -106,8 +106,6 @@ bool ULlamaUnreal::Generate_Implementation(const TScriptInterface<IAtumTensor>& 
 bool ULlamaUnreal::LoadParams_Implementation(const FString& Path)
 {
 
-	
-
 	FString const FilePath = IAtumModule::GetContentDirectory(Path);
 	if (!FPaths::FileExists(FilePath))
 	{
