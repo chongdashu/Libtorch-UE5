@@ -16,25 +16,26 @@ TSharedRef<IDetailCustomization> FAtumNeuralNetworkLayersCustomization::MakeInst
 
 void FAtumNeuralNetworkLayersCustomization::CustomizeDetails(IDetailLayoutBuilder& DetailBuilder)
 {
-    TArray<TWeakObjectPtr<UObject>> Objects;
+   TArray<TWeakObjectPtr<UObject>> Objects;
     DetailBuilder.GetObjectsBeingCustomized(Objects);
 
-    for (TWeakObjectPtr<UObject> Object : Objects)
+    // Loop over each object being customized
+    for (const TWeakObjectPtr<UObject>& Object : Objects)
     {
         if (UAtumNeuralNetworkLayers* Layers = Cast<UAtumNeuralNetworkLayers>(Object.Get()))
         {
-            IDetailCategoryBuilder& LayerObjectsCategory = DetailBuilder.EditCategory("LayerObjects", FText::GetEmpty(), ECategoryPriority::Important);
-
-            const TArray<const UObject*>& LayerObjects = Layers->GetLayerObjects();
+            // Use the property handle to access LayerObjects property
+            TSharedPtr<IPropertyHandle> LayerObjectsPropertyHandle = DetailBuilder.GetProperty(GET_MEMBER_NAME_CHECKED(UAtumNeuralNetworkLayers, LayerObjects), UAtumNeuralNetworkLayers::StaticClass());
             
-            for (int32 Index = 0; Index < LayerObjects.Num(); ++Index)
+            if (LayerObjectsPropertyHandle.IsValid())
             {
-                if (const ULlamaUnreal* LlamaUnreal = Cast<ULlamaUnreal>(LayerObjects[Index]))
-                {
-                    FString RowName = FString::Printf(TEXT("LayerObject_%d"), Index);
-gi
-                    // Add a button to the row
-                    LayerObjectsCategory.AddCustomRow(FText::FromString(RowName))
+                // Customize the widget for the LayerObjects property
+                IDetailCategoryBuilder& LayerObjectsCategory = DetailBuilder.EditCategory("LayerObjects");
+
+                LayerObjectsPropertyHandle->MarkHiddenByCustomization();
+
+                // Add a custom row for the 'Load JSON' button
+                LayerObjectsCategory.AddCustomRow(FText::FromString("Load JSON"))
                     .ValueContent()
                     [
                         SNew(SHorizontalBox)
@@ -42,14 +43,23 @@ gi
                         .AutoWidth()
                         [
                             SNew(SButton)
-                            .Text(FText::FromString("Load JSON"))
-                            .OnClicked_Lambda([this, &DetailBuilder, LlamaUnreal]() -> FReply {
-                                return FReply::Handled();
-                            })
+                            .Text(FText::FromString("Load the JSON"))
+                            // Your OnClicked event binding here
                         ]
-                        + SHorizontalBox::Slot()
-                        .FillWidth(1.f)
                     ];
+
+                // Generate default widgets for each element in the LayerObjects array
+                uint32 NumChildren;
+                LayerObjectsPropertyHandle->GetNumChildren(NumChildren);
+
+                for (uint32 i = 0; i < NumChildren; i++)
+                {
+                    TSharedPtr<IPropertyHandle> ChildHandle = LayerObjectsPropertyHandle->GetChildHandle(i);
+                    if (ChildHandle.IsValid())
+                    {
+                        // Add the default property widget for this child
+                        LayerObjectsCategory.AddProperty(ChildHandle);
+                    }
                 }
             }
         }
