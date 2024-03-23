@@ -28,7 +28,9 @@ public class AtumEditor : ModuleRules
 		{
 			"Atum",
 			"Core",
-			"CoreUObject"
+			"CoreUObject",
+			"Json",
+			"JsonUtilities" 
 		});
 		
 		PrivateDependencyModuleNames.AddRange(new[]

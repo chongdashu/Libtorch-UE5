@@ -5,15 +5,18 @@
 #include "DesktopPlatformModule.h"
 #include "DetailLayoutBuilder.h"
 #include "Models/Llama/LlamaUnreal.h"
+#include "Models/Llama/llama_config.h"
 #include "DetailWidgetRow.h"
 #include "IDesktopPlatform.h"
 #include "Dom/JsonObject.h"
-#include "Layers/Network/AtumNeuralNetworkLayers.h"
-#include "Misc/FileHelper.h"
 #include "Serialization/JsonReader.h"
 #include "Serialization/JsonSerializer.h"
+#include "Layers/Network/AtumNeuralNetworkLayers.h"
+#include "Misc/FileHelper.h"
+#include "Json.h"
 #include "Widgets/Input/SButton.h"
 #include "Widgets/Input/SFilePathPicker.h"
+
 
 TSharedRef<IDetailCustomization> FAtumNeuralNetworkLayersCustomization::MakeInstance()
 {
@@ -113,30 +116,52 @@ void FAtumNeuralNetworkLayersCustomization::LoadConfigurationFromFile(ULlamaUnre
             OpenFilenames
         );
 
-        // if (OpenFilenames.Num() > 0)
-        // {
-        //     const FString& FilePath = OpenFilenames[0];
-        //     FString JsonRaw;
-        //     if (FFileHelper::LoadFileToString(JsonRaw, *FilePath))
-        //     {
-        //         TSharedPtr<FJsonObject> JsonObject;
-        //         TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(JsonRaw);
-        //
-        //         if (FJsonSerializer::Deserialize(Reader, JsonObject) && JsonObject.IsValid())
-        //         {
-        //             // Logic to create a LlamaConfig instance from JsonObject
-        //             // and apply it to the passed LlamaUnreal instance.
-        //             // This is where you parse the JSON and apply settings,
-        //             // similar to the previous example.
-        //             
-        //             // Note: Adjust this part according to your actual JSON structure and LlamaUnreal methods.
-        //             LlamaConfig config;
-        //             // Set config fields from JsonObject...
-        //             FAtumLlamaOptions NewOptions;
-        //             NewOptions.SetFrom(config);
-        //             // LlamaUnreal->ApplyNewOptions(NewOptions); // Ensure this method exists in ULlamaUnreal.
-        //         }
-        //     }
-        // }
+        if (OpenFilenames.Num() > 0)
+        {
+            const FString& FilePath = OpenFilenames[0];
+            FString JsonRaw;
+            if (FFileHelper::LoadFileToString(JsonRaw, *FilePath))
+            {
+                TSharedPtr<FJsonObject> JsonObject;
+                TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(JsonRaw);
+
+                if (FJsonSerializer::Deserialize(Reader, JsonObject) && JsonObject.IsValid())
+                {
+                    // Parse the JSON and apply settings to create a new FLlamaConfig instance
+                    LlamaConfig Config;
+
+                    // Set Config fields from JsonObject
+                    Config.vocab_size = JsonObject->GetIntegerField(TEXT("vocab_size"));
+                    Config.hidden_size = JsonObject->GetIntegerField(TEXT("hidden_size"));
+                    Config.intermediate_size = JsonObject->GetIntegerField(TEXT("intermediate_size"));
+                    Config.num_hidden_layers = JsonObject->GetIntegerField(TEXT("num_hidden_layers"));
+                    Config.num_attention_heads = JsonObject->GetIntegerField(TEXT("num_attention_heads"));
+                    Config.hidden_act = std::string(TCHAR_TO_UTF8(*JsonObject->GetStringField(TEXT("hidden_act"))));
+                    Config.max_position_embeddings = JsonObject->GetIntegerField(TEXT("max_position_embeddings"));
+                    Config.initializer_range = JsonObject->GetNumberField(TEXT("initializer_range"));
+                    Config.rms_norm_eps = JsonObject->GetNumberField(TEXT("rms_norm_eps"));
+                    Config.use_cache = JsonObject->GetBoolField(TEXT("use_cache"));
+                    Config.pad_token_id = JsonObject->GetIntegerField(TEXT("pad_token_id"));
+                    Config.bos_token_id = JsonObject->GetIntegerField(TEXT("bos_token_id"));
+                    Config.eos_token_id = JsonObject->GetIntegerField(TEXT("eos_token_id"));
+                    Config.tie_word_embeddings = JsonObject->GetBoolField(TEXT("tie_word_embeddings"));
+                    Config.output_hidden_states = JsonObject->GetBoolField(TEXT("output_hidden_states"));
+                    Config.output_attentions = JsonObject->GetBoolField(TEXT("output_attentions"));
+
+                    // Apply the new Config to the LlamaUnreal instance
+                    FAtumLlamaOptions NewOptions;
+                    NewOptions.SetFrom(Config);
+                    LlamaUnreal->SetOptions(NewOptions);
+
+                    // Refresh the UI to reflect the loaded values
+                    FPropertyEditorModule& PropertyEditorModule = FModuleManager::GetModuleChecked<FPropertyEditorModule>("PropertyEditor");
+                    TSharedPtr<IDetailsView> DetailsView = PropertyEditorModule.FindDetailView(TEXT("AtumNeuralNetworkEditorDetailsTab"));
+                    if (DetailsView.IsValid())
+                    {
+                        DetailsView->SetObject(LlamaUnreal, true);
+                    }   
+                }
+            }
+        }
     }
 }
